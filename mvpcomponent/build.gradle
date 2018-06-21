@@ -1,0 +1,143 @@
+apply from: "${rootProject.rootDir}/module_config.gradle"
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    project.ext.setDefaultConfig project
+    useLibrary 'org.apache.http.legacy'
+
+    defaultConfig {
+        buildConfigField("boolean","TDEBUG","true")
+        // dex突破65535的限制
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dexOptions {
+
+        javaMaxHeapSize "4g"
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //support
+    api(rootProject.ext.dependencies["support-v4"]) {
+        exclude module: 'support-annotations'
+    }
+    api(rootProject.ext.dependencies["appcompat-v7"]) {
+        exclude module: 'support-annotations'
+        exclude module: 'support-v4'
+    }
+    api('com.android.support.constraint:constraint-layout:1.0.2') {
+        exclude module: 'support-annotations'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    api(rootProject.ext.dependencies["design"]) {
+        exclude module: 'support-annotations'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    api rootProject.ext.dependencies["annotations"]
+    //rx2
+    api rootProject.ext.dependencies["rxjava2"]
+    api(rootProject.ext.dependencies["rxandroid2"]) {
+        exclude module: 'rxjava'
+    }
+    api(rootProject.ext.dependencies["rxpermissions2"]) {
+        exclude module: 'rxjava'
+        exclude module: 'support-annotations'
+    }
+    //network
+    api(rootProject.ext.dependencies["retrofit"]) {
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+    }
+    api(rootProject.ext.dependencies["retrofit-converter-gson"]) {
+        exclude module: 'gson'
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+        exclude module: 'retrofit'
+    }
+    api(rootProject.ext.dependencies["retrofit-adapter-rxjava2"]) {
+        exclude module: 'rxjava'
+        exclude module: 'okhttp'
+        exclude module: 'retrofit'
+        exclude module: 'okio'
+    }
+    api rootProject.ext.dependencies["okhttp3"]
+    api(rootProject.ext.dependencies["glide"]){
+        exclude module: 'support-v4'
+    }
+    annotationProcessor(rootProject.ext.dependencies["glide-compiler"]) {
+        exclude module: 'jsr305'
+    }
+    //tools
+    provided rootProject.ext.dependencies["javax.annotation"]
+    api rootProject.ext.dependencies["gson"]
+    api rootProject.ext.dependencies["eventbus"]
+    //test
+    api rootProject.ext.dependencies["logger"]
+    api rootProject.ext.dependencies["recyclerview-v7"]
+    api(rootProject.ext.dependencies["rxcache2"]) {
+        exclude module: 'rxjava'
+        exclude module: 'dagger'
+    }
+    api(rootProject.ext.dependencies["rxcache-jolyglot-gson"]) {
+        exclude module: 'gson'
+    }
+    api(rootProject.ext.dependencies["arouter"]) {
+        exclude module: 'support-v4'
+        exclude module: 'javax.annotation'
+    }
+    api rootProject.ext.dependencies["kotlin"]
+    api(rootProject.ext.dependencies["kotlin-reflect"]) {
+        exclude module: 'kotlin'
+    }
+    api(rootProject.ext.dependencies["verticalviewpager"]) {
+        exclude module: 'support-annotations'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    api(rootProject.ext.dependencies["rxlifecycle2"]) {
+        exclude module: 'rxjava'
+        exclude module: 'jsr305'
+    }
+    api(rootProject.ext.dependencies["rxlifecycle2-components"]) {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+        exclude module: 'rxjava'
+        exclude module: 'rxandroid'
+        exclude module: 'rxlifecycle'
+    }
+    api 'org.jsoup:jsoup:1.7.3'
+    api("fm.jiecao:jiecaovideoplayer:4.8.2"){
+        exclude module:'tv.danmaku.ijk.media:ijkplayer-x86'
+        exclude module:'tv.danmaku.ijk.media:ijkplayer-x86_64'
+    }
+    api(rootProject.ext.dependencies["autolayout"]){
+        exclude group: 'com.android.support'
+    }
+    api(rootProject.ext.dependencies["cardview"]){
+        exclude group: 'com.android.support'
+    }
+    api rootProject.ext.dependencies["progressmanager"]
+    api rootProject.ext.dependencies["retrofit-url-manager"]
+    api(rootProject.ext.dependencies["refresh"]){
+        exclude group: 'com.android.support'
+    }
+}

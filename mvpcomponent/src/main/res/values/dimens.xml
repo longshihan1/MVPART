@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="settinglistitem_image">30dp</dimen>
+    <dimen name="margin_right">10dp</dimen>
+    <dimen name="image_text">20dp</dimen>
+    <dimen name="rightimage_width">8dp</dimen>
+    <dimen name="rightimage_height">14dp</dimen>
+    <dimen name="twentyeightdp">28dp</dimen>
+    <dimen name="threedp">3dp</dimen>
+    <dimen name="twelvesp">12sp</dimen>
+
+    <dimen name="twelvedp">12dp</dimen>
+    <dimen name="twodp">2dp</dimen>
+    <dimen name="comm_corner">5dp</dimen>
+    <dimen name="title_heigh">45dip</dimen>
+    <dimen name="text_size">16sp</dimen>
+
+    <dimen name="divide_heigh_home">1px</dimen>
+</resources>

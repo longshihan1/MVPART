@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.longshihan.module_gank" >
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+        <meta-data
+            android:name="com.longshihan.module_gank.config.GlobalConfiguration"
+            android:value="ConfigModule" />
+        <activity android:name=".mvp.MainModule.ui.activity.GankMainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".mvp.MeiZiModule.MeiZhiActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+</manifest>

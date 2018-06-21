@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--setting linear的相关属性-->
+    <attr name="leftImage" format="reference"/>
+    <attr name="leftImagewidth" format="dimension"/>
+    <attr name="leftmarginText" format="dimension"/>
+    <attr name="rightImageheight" format="dimension"/>
+    <attr name="rightimage_show" format="boolean"/>
+    <attr name="settingText" format="string"/>
+
+    <attr name="rightImage" format="reference"/>
+    <attr name="textsize" format="dimension"/>
+    <attr name="leftImageheight" format="dimension"/>
+    <attr name="rightImagewidth" format="dimension"/>
+    <attr name="leftmargin" format="dimension"/>
+    <attr name="rightmargin" format="dimension"/>
+
+    <!--main下的tab-->
+    <declare-styleable name="HomeTabLayout">
+        <attr name="tabText" format="string"/>
+        <attr name="tabImage" format="reference"/>
+        <attr name="tabPosition" format="integer"/>
+        <attr name="imagemargintext" format="dimension"/>
+        <attr name="imagewh" format="dimension"/>
+        <attr name="imageww" format="dimension"/>
+        <attr name="tabtextsize" format="dimension"/>
+        <attr name="tabtextcolor" format="dimension"/>
+    </declare-styleable>
+
+    <!--设置设置界面的list-->
+    <declare-styleable name="settinglinear">
+        <attr name="settingText"/>
+        <attr name="leftImage"/>
+        <attr name="rightImage"/>
+        <attr name="textsize"/>
+        <attr name="leftImagewidth"/>
+        <attr name="leftImageheight"/>
+        <attr name="rightImagewidth"/>
+        <attr name="rightImageheight"/>
+        <attr name="leftmargin"/>
+        <attr name="leftmarginText"/>
+        <attr name="rightmargin"/>
+        <attr name="rightimage_show"/>
+        <attr name="leftImage_show" format="boolean"/>
+        <attr name="righttext_show" format="boolean"/>
+        <attr name="righttext" format="string"/>
+        <attr name="righttext_marginleft" format="dimension"/>
+        <attr name="righttext_textsize" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleProgressBar">
+        <attr name="mlpb_inner_radius" format="dimension"/>
+        <attr name="mlpb_background_color" format="color"/>
+        <attr name="mlpb_progress_color" format="color"/>
+        <attr name="mlpb_progress_stoke_width" format="dimension"/>
+        <attr name="mlpb_show_arrow" format="boolean"/>
+        <attr name="mlpb_enable_circle_background" format="boolean"/>
+        <attr name="mlpb_arrow_width" format="dimension"/>
+        <attr name="mlpb_arrow_height" format="dimension"/>
+
+        <attr name="mlpb_progress" format="integer"/>
+        <attr name="mlpb_max" format="integer"/>
+
+
+        <attr name="mlpb_progress_text_size" format="dimension"/>
+        <attr name="mlpb_progress_text_color" format="color"/>
+
+        <!--<attr name="mlpb_progress_text_offset" format="dimension"/>-->
+
+        <attr name="mlpb_progress_text_visibility" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="1"/>
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="AutoTabLayout">
+        <attr name="auto_textSize_base_width" format="boolean"></attr>
+    </declare-styleable>
+</resources>

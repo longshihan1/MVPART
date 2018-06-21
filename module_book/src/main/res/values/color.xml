@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00acc1</color>
+    <color name="colorPrimaryDark">#0097A7</color>
+    <color name="colorAccent">#0097A7</color>
+    <color name="textColorPrimary">#212121</color>
+    <color name="textColorSencondary">#727272</color>
+
+    <color name="textColorTitle">@color/textColorPrimary</color>
+    <color name="textColorSummary">@color/textColorSencondary</color>
+
+    <color name="imageColorPlaceholder">#ededed</color>
+    <color name="divider">#33000000</color>
+
+
+    <color name="blue">#5677fc</color>
+    <color name="red">#e51c23</color>
+    <color name="green">#259b24</color>
+    <color name="yellow">#ffeb3b</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="grey">#515151</color>
+    <color name="md_blue_100">#e51c23</color>
+</resources>
