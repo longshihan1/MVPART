@@ -1,28 +1,63 @@
+apply from: "${rootProject.rootDir}/module_config.gradle"
 apply plugin: 'com.android.application'
 
+def buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyy-MM-dd', TimeZone.getTimeZone("UTC"))
+    return formattedDate
+}
+
 android {
-    compileSdkVersion 27
+    project.ext.setDefaultConfig project
     defaultConfig {
         applicationId "com.longshihan.mvpart"
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+    signingConfigs {
+        longshihan {
+            keyAlias 'longshihan'
+            keyPassword 'long123456'
+            storeFile file('../longshihan.jks')
+            storePassword 'long123456'
+        }
+    }
+
     buildTypes {
-        release {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "USE_CANARY", "true"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "USE_CANARY", "false"
+            buildConfigField "boolean", "LOG_CONFIG", "true"
+            minifyEnabled false
+            zipAlignEnabled true
+            signingConfig signingConfigs.longshihan
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def releaseApkName = 'longshihan_v' + defaultConfig.versionName + '_${buildTime()}_' + variant.productFlavors[0].name + '.apk'
+                    outputFileName = releaseApkName
+                }
+            }
+        }
+    }
+    resourcePrefix "mian_"
+    productFlavors {
+        client {
+        }
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+        disable "ResourceType"
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation project(':mvpcomponent')
 }

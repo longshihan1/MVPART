@@ -140,4 +140,11 @@ dependencies {
     api(rootProject.ext.dependencies["refresh"]){
         exclude group: 'com.android.support'
     }
+    api rootProject.ext.dependencies["viewmodel-extensions"]
+    api rootProject.ext.dependencies["viewmodel"]
+    api rootProject.ext.dependencies["livedata"]
+    api rootProject.ext.dependencies["livedata-runtime"]
+    annotationProcessor  rootProject.ext.dependencies["lifecycle-compiler"]
+    api rootProject.ext.dependencies["lifecycle-commonjava8"]
+    api rootProject.ext.dependencies["lifecycle-reactivestreams"]
 }
