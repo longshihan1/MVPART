@@ -3,9 +3,12 @@ package com.longshihan.mvpcomponent.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.longshihan.mvpcomponent.BuildConfig;
 import com.longshihan.mvpcomponent.di.component.AppComponent;
 import com.longshihan.mvpcomponent.base.delegate.AppDelegate;
 import com.longshihan.mvpcomponent.base.delegate.AppLifecycles;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 
 /**
@@ -18,7 +21,6 @@ public class BaseApplication extends Application implements App {
     private AppLifecycles mAppDelegate;
 
     public BaseApplication(){
-//        Small.preSetUp(this);
     }
 
     /**

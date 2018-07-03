@@ -4,9 +4,10 @@
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
+/.idea/vcs.xml
+/.idea/kotlinc.xml
 .DS_Store
 /build
 /captures
 .externalNativeBuild
-/.idea/vcs.xml
 /.idea/misc.xml

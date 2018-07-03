@@ -15,6 +15,7 @@ android {
             applicationId "com.longshihan.module_gank"
         }
     }
+
     sourceSets {
         main {
             if (isModule.toBoolean()) {
@@ -40,6 +41,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     api 'com.commit451:PhotoView:1.2.5'
     implementation project(':baseadapter')
+    implementation project(':mvpcomponent')
 }
 
 apply plugin: 'kotlin-android'

@@ -1,13 +1,63 @@
 apply from: "${rootProject.rootDir}/module_config.gradle"
 apply plugin: 'com.android.application'
 
+def buildTime() {
+    def date = new Date()
+    def formattedDate = date.format('yyyy-MM-dd', TimeZone.getTimeZone("UTC"))
+    return formattedDate
+}
+
 android {
     project.ext.setDefaultConfig project
     defaultConfig {
         applicationId "com.longshihan.mvpart"
+
+    }
+    signingConfigs {
+        longshihan {
+            keyAlias 'longshihan'
+            keyPassword 'long123456'
+            storeFile file('../longshihan.jks')
+            storePassword 'long123456'
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "USE_CANARY", "true"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "boolean", "USE_CANARY", "false"
+            buildConfigField "boolean", "LOG_CONFIG", "true"
+            minifyEnabled false
+            zipAlignEnabled true
+            signingConfig signingConfigs.longshihan
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def releaseApkName = 'longshihan_v' + defaultConfig.versionName + '_${buildTime()}_' + variant.productFlavors[0].name + '.apk'
+                    outputFileName = releaseApkName
+                }
+            }
+        }
+    }
+    resourcePrefix "mian_"
+    productFlavors {
+        client {
+        }
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+        disable "ResourceType"
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':mvpcomponent')
 }
