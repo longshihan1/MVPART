@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * Created by jess on 2015/11/24.
  */
 public abstract class BaseHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener {
     protected OnViewClickListener mOnViewClickListener = null;

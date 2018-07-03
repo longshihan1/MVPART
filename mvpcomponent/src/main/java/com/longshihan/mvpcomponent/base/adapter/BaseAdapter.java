@@ -1,13 +1,16 @@
 package com.longshihan.mvpcomponent.base.adapter;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author longshihan
@@ -19,11 +22,24 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseHolder<T>>
     protected List<T> mInfos;
     protected OnRecyclerViewItemClickListener mOnItemClickListener = null;
     private BaseHolder<T> mHolder;
-
+    private Map<Integer,Integer> typeMap=new HashMap<>();
+    private Map<Integer,Integer> idsMap=new HashMap<>();
+    private int type=0;
+    private int TYPE_HEADER=-1;
+    private int TYPE_FOOTER=-2;
     public BaseAdapter(List<T> infos) {
         super();
         this.mInfos = infos;
     }
+
+//    public void addHolder(@LayoutRes int ids,Object o){
+//        type=type+1;
+//        if (o instanceof List){
+//            typeMap.put()
+//        }else {
+//
+//        }
+//    }
 
     /**
      * 创建Hodler
@@ -89,6 +105,11 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseHolder<T>>
         holder.bindHolder(mInfos.get(position), position,getContext());
     }
 
+    @Override
+    public int getItemViewType(int position) {
+
+        return super.getItemViewType(position);
+    }
 
     /**
      * 数据的个数

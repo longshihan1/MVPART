@@ -1,4 +1,4 @@
-package com.longshihan.mvpart;
+package com.longshihan.baseadapter;
 
 import org.junit.Test;
 

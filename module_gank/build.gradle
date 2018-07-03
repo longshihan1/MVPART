@@ -15,7 +15,19 @@ android {
             applicationId "com.longshihan.module_gank"
         }
     }
-
+    sourceSets {
+        main {
+            if (isModule.toBoolean()) {
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                //集成开发模式下排除debug文件夹中的所有Java文件
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
     //resourcePrefix "toutiao_"
 }
 
@@ -27,7 +39,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     api 'com.commit451:PhotoView:1.2.5'
-    implementation project(':mvpcomponent')
+    implementation project(':baseadapter')
 }
 
 apply plugin: 'kotlin-android'

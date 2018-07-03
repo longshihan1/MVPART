@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.longshihan.module_gank.R;
 import com.longshihan.module_gank.adapter.MeiZiAdapter;
+import com.longshihan.module_gank.adapter.MeiziTestAdapter;
 import com.longshihan.module_gank.mvp.MainModule.contract.TodayGankContract;
 import com.longshihan.module_gank.mvp.MainModule.model.entity.Meizi;
 import com.longshihan.module_gank.mvp.MainModule.model.entity.MeiziData;
@@ -34,7 +35,7 @@ public class TodayGankFragment extends BaseMVPFragment<TodayPersenter> implement
     private RecyclerView mRecyclerView;
     private SmartRefreshLayout mSmartRefreshLayout;
     private List<Meizi> meizis;
-    private MeiZiAdapter adapter;
+    private MeiziTestAdapter adapter;
     private int page = 1;
     private boolean isRefresh = true;
     private boolean canLoading = true;
@@ -70,12 +71,13 @@ public class TodayGankFragment extends BaseMVPFragment<TodayPersenter> implement
         return inflater.inflate(R.layout.fragment_today_gank, container, false);
     }
 
+
     @Override
     public void initData(Bundle savedInstanceState) {
         mRecyclerView = getView(R.id.gank_todayrecycleView);
         mSmartRefreshLayout = getView(R.id.gank_todayrefreshLayout);
 
-        adapter = new MeiZiAdapter(mContext, new ArrayList<Meizi>());
+        adapter = new MeiziTestAdapter(R.layout.item_meizi, new ArrayList<Meizi>());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(adapter);
