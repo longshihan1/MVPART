@@ -12,10 +12,16 @@ import com.longshihan.mvpart.arch.model.User;
 import com.longshihan.mvpart.arch.viewmodel.MyViewModel0;
 import com.longshihan.mvpart.arch.viewmodel.MyViewModel1;
 import com.longshihan.mvpcomponent.*;
+import com.longshihan.mvpcomponent.arch.livedata.DataWrap;
+import com.longshihan.mvpcomponent.arch.livedata.RxLiveData;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             Logger.addLogAdapter(new AndroidLogAdapter());//debug下使用Logger日志模块
         }
         final MyViewModel0 myViewModel0= ViewModelProviders.of(this).get(MyViewModel0.class);
+        final MyViewModel1 myViewModel1=ViewModelProviders.of(this).get(MyViewModel1.class);
         myViewModel0.getUsers().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User users) {
@@ -40,7 +47,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel0.setUsers(new User("123"));
+                myViewModel1.setUsers(new User("234"));
             }
         });
+
+
+        myViewModel1.getUsers().observable(this).subscribe(new Consumer<DataWrap<User>>() {
+            @Override
+            public void accept(DataWrap<User> userDataWrap) throws Exception {
+                if (!userDataWrap.isNull()) {
+                    if (userDataWrap.get()!=null) {
+                        Logger.d(userDataWrap.get().name);
+                    }else {
+                        Logger.d("出错了2");
+                    }
+                }else {
+                    Logger.d("出错了");
+                }
+            }
+        });
+
     }
 }

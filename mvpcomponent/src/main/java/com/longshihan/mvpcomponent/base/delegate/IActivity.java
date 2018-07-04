@@ -28,7 +28,7 @@ public interface IActivity{
      */
     int initView(Bundle savedInstanceState);
 
-    void initData(Bundle savedInstanceState);
+    void initData();
 
 
     /**

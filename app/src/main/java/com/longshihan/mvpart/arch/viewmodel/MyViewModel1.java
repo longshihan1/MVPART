@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.longshihan.mvpart.arch.model.User;
+import com.longshihan.mvpcomponent.arch.livedata.RxLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,17 +25,14 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class MyViewModel1 extends ViewModel {
-    private Observable<User> users;
 
-    public Observable<User> getUsers() {
+    private RxLiveData<User> users=new RxLiveData<>();
+
+    public RxLiveData<User> getUsers() {
         return users;
     }
 
     public void setUsers(User user) {
-        users = Observable.create(new ObservableOnSubscribe<User>() {
-            @Override
-            public void subscribe(ObservableEmitter<User> e) throws Exception {
-            }
-        });
+        users.set(user);
     }
 }

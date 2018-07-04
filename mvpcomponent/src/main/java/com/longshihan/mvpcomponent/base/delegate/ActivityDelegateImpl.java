@@ -30,7 +30,7 @@ public class ActivityDelegateImpl implements ActivityDelegate {
 
     @Override
     public void onStart() {
-
+        iActivity.initData();
     }
 
     @Override

@@ -3,7 +3,6 @@ package com.longshihan.mvpcomponent.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,13 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.longshihan.mvpcomponent.base.delegate.IFragment;
-import com.longshihan.mvpcomponent.intergration.lifecycle.FragmentLifecycleable;
 import com.longshihan.mvpcomponent.mvp.IPresenter;
-import com.trello.rxlifecycle2.android.FragmentEvent;
 
-
-import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.Subject;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author longshihan
@@ -25,18 +21,12 @@ import io.reactivex.subjects.Subject;
  * @des
  */
 
-public abstract class BaseFragment<P extends IPresenter> extends Fragment implements IFragment,FragmentLifecycleable {
+public abstract class BaseFragment<P extends IPresenter> extends Fragment implements IFragment {
     protected final String TAG = this.getClass().getSimpleName();
     protected P mPresenter;
-    private final BehaviorSubject<FragmentEvent> mLifecycleSubject = BehaviorSubject.create();
     protected Activity mActivity;
     protected Context mContext;
 
-    @NonNull
-    @Override
-    public final Subject<FragmentEvent> provideLifecycleSubject() {
-        return mLifecycleSubject;
-    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -53,14 +43,33 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = initView(inflater, container, savedInstanceState);
-        initData(savedInstanceState);
         return view;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLifecycle().addObserver(mPresenter);
+    }
+
+    private CompositeDisposable mCompositeDisposable;
+    public void addDispose(Disposable disposable) {
+        if (mCompositeDisposable == null) {
+            mCompositeDisposable = new CompositeDisposable();
+        }
+        mCompositeDisposable.add(disposable);//将所有disposable放入,集中处理
+    }
+
+    public void unDispose() {
+        if (mCompositeDisposable != null) {
+            mCompositeDisposable.clear();//保证activity结束时取消所有正在执行的订阅
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null) mPresenter.onDestroy();//释放资源
         this.mPresenter = null;
     }
 }

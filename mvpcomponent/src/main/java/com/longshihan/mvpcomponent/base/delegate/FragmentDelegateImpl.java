@@ -35,7 +35,10 @@ public class FragmentDelegateImpl implements FragmentDelegate {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         iFragment.setupFragmentComponent(((App) mFragment.getActivity().getApplication()).getAppComponent());
+
     }
+
+
 
     @Override
     public void onCreateView(View view, Bundle savedInstanceState) {

@@ -1,5 +1,10 @@
 package com.longshihan.mvpcomponent.mvp;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleOwner;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.ref.WeakReference;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -18,31 +23,11 @@ public class BasePresenter<V extends IView> implements IPresenter {
     protected WeakReference<V> mViewRef;
 
     public BasePresenter() {
-        onStart();
     }
 
     public BasePresenter(V rootView) {
         this.mRootView = rootView;
        // attachView(rootView);
-        onStart();
-    }
-
-    @Override
-    public void onStart() {
-
-    }
-
-    @Override
-    public void onCloseView(){
-        mRootView.closeActivity();
-    }
-
-    @Override
-    public void onDestroy() {
-        detachView();
-        unDispose();//解除订阅
-
-        this.mCompositeDisposable = null;
     }
 
     private void detachView() {
@@ -66,6 +51,10 @@ public class BasePresenter<V extends IView> implements IPresenter {
         return mRootView;
     }
 
+    public void onCloseView(){
+        mRootView.closeActivity();
+    }
+
 
     public void addDispose(Disposable disposable) {
         if (mCompositeDisposable == null) {
@@ -78,5 +67,48 @@ public class BasePresenter<V extends IView> implements IPresenter {
         if (mCompositeDisposable != null) {
             mCompositeDisposable.clear();//保证activity结束时取消所有正在执行的订阅
         }
+    }
+
+    @Override
+    public void onCreate(@NotNull LifecycleOwner owner) {
+
+    }
+
+    @Override
+    public void onStart(@NotNull LifecycleOwner owner) {
+
+    }
+
+    @Override
+    public void onResume(@NotNull LifecycleOwner owner) {
+
+    }
+
+    @Override
+    public void onPause(@NotNull LifecycleOwner owner) {
+
+    }
+
+    @Override
+    public void onStop(@NotNull LifecycleOwner owner) {
+
+    }
+
+    @Override
+    public void onDestroy(@NotNull LifecycleOwner owner) {
+        detachView();
+        unDispose();//解除订阅
+
+        this.mCompositeDisposable = null;
+    }
+
+    /**
+     * 当状态发生变化
+     * @param owner
+     * @param event
+     */
+    @Override
+    public void onLifecycleChanged(@NotNull LifecycleOwner owner, @NotNull Lifecycle.Event event) {
+
     }
 }

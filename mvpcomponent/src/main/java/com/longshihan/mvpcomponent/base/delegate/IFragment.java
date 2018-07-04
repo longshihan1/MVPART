@@ -25,4 +25,7 @@ public interface IFragment {
      * @param appComponent
      */
     void setupFragmentComponent(AppComponent appComponent);
+
+
+
 }

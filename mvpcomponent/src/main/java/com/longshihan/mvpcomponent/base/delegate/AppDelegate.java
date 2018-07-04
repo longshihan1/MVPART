@@ -5,9 +5,8 @@ import android.content.ComponentCallbacks2;
 import android.content.Context;
 import android.content.res.Configuration;
 
-
-import com.longshihan.mvpcomponent.di.component.AppComponent;
 import com.longshihan.mvpcomponent.base.App;
+import com.longshihan.mvpcomponent.di.component.AppComponent;
 import com.longshihan.mvpcomponent.di.component.AppComponentImpl;
 import com.longshihan.mvpcomponent.di.module.AppModule;
 import com.longshihan.mvpcomponent.di.module.ClientModule;
@@ -15,7 +14,6 @@ import com.longshihan.mvpcomponent.di.module.GlobalConfigModule;
 import com.longshihan.mvpcomponent.intergration.ActivityLifecycle;
 import com.longshihan.mvpcomponent.intergration.ConfigModule;
 import com.longshihan.mvpcomponent.intergration.ManifestParser;
-import com.longshihan.mvpcomponent.intergration.lifecycle.ActivityLifecycleForRxLifecycle;
 import com.longshihan.mvpcomponent.strategy.imageloader.glide.ImageConfigImpl;
 
 import java.util.ArrayList;
@@ -36,7 +34,6 @@ public class AppDelegate implements App, AppLifecycles {
     private Application mApplication;
     private AppComponent mAppComponent;
     protected ActivityLifecycle mActivityLifecycle;
-    protected ActivityLifecycleForRxLifecycle mActivityLifecycleForRxLifecycle;
     private List<ConfigModule> mModules;
     private List<AppLifecycles> mAppLifecycles = new ArrayList<>();
     private List<Application.ActivityLifecycleCallbacks> mActivityLifecycles = new ArrayList<>();
@@ -66,9 +63,7 @@ public class AppDelegate implements App, AppLifecycles {
         mAppComponent.extras().put(ConfigModule.class.getName(), mModules);
         this.mModules = null;
         mActivityLifecycle=new ActivityLifecycle(mAppComponent.appManager(),application,mAppComponent.extras());
-        mActivityLifecycleForRxLifecycle=new ActivityLifecycleForRxLifecycle();
         mApplication.registerActivityLifecycleCallbacks(mActivityLifecycle);
-        mApplication.registerActivityLifecycleCallbacks(mActivityLifecycleForRxLifecycle);
 
         for (Application.ActivityLifecycleCallbacks lifecycle : mActivityLifecycles) {
             mApplication.registerActivityLifecycleCallbacks(lifecycle);
@@ -87,9 +82,6 @@ public class AppDelegate implements App, AppLifecycles {
     public void onTerminate(Application application) {
         if (mActivityLifecycle != null) {
             mApplication.unregisterActivityLifecycleCallbacks(mActivityLifecycle);
-        }
-        if (mActivityLifecycleForRxLifecycle != null) {
-            mApplication.unregisterActivityLifecycleCallbacks(mActivityLifecycleForRxLifecycle);
         }
         if (mComponentCallback != null) {
             mApplication.unregisterComponentCallbacks(mComponentCallback);
