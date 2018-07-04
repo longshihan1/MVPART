@@ -35,14 +35,14 @@ project.ext {
 
             }
             extension.dependencies {
-                compile fileTree(dir: 'libs', include: ['*.jar'])
+                implementation fileTree(dir: 'libs', include: ['*.jar'])
                 annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
             }
     }
     setDependencies = {
         extension ->
             extension.dependencies {
-                compile fileTree(dir: 'libs', include: ['*.jar'])
+                implementation fileTree(dir: 'libs', include: ['*.jar'])
                 annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
             }
     }
