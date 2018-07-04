@@ -1,8 +1,9 @@
 apply from: "${rootProject.rootDir}/module_config.gradle"
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.github.dcendents.android-maven'
+
 
 group = 'com.github.longshihan1'
 
