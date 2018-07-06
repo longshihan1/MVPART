@@ -2,9 +2,9 @@
 <resources>
 
     <!--APP的主题色-->
-    <color name="colorPrimary">#F44336</color>
-    <color name="colorPrimaryDark">#D32F2F</color>
-    <color name="colorAccent">#FF5252</color>
+    <color name="colorPrimary">#F44333</color>
+    <color name="colorPrimaryDark">#D32F2d</color>
+    <color name="colorAccent">#FF5232</color>
 
     <!--APP公用的一些颜色-->
     <color name="common_bg">#fff7f7f7</color>
