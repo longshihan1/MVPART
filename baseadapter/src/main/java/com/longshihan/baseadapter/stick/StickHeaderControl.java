@@ -19,8 +19,12 @@ import java.util.ArrayList;
 
 public class StickHeaderControl {
 
-    public static StickHeaderControl getInstance(Builder builder){
-        return new StickHeaderControl(builder);
+    static StickHeaderControl control;
+    public static StickHeaderControl getInstance(Builder builder) {
+        if (control == null) {
+            control = new StickHeaderControl(builder);
+        }
+        return control;
     }
 
     private  RecyclerView.Adapter adapter;

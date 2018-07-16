@@ -23,8 +23,8 @@ import com.longshihan.baseadapter.utils.WrapperUtils;
  */
 
 public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int BASE_ITEM_TYPE_HEADER = 100000;
-    private static final int BASE_ITEM_TYPE_FOOTER = 200000;
+    private static final int BASE_ITEM_TYPE_HEADER = 200000;
+    private static final int BASE_ITEM_TYPE_FOOTER = 250000;
     public RecyclerView recyclerView;
     private RecyclerView.Adapter mInnerAdapter;
     private SparseArrayCompat<View> mHeaderViews;
@@ -130,7 +130,7 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
             setFullSpan(holder);
             return;
         }
-        if (holder.getItemViewType()>100000){
+        if (holder.getItemViewType()>200000){
             return;
         }
         mInnerAdapter.onViewAttachedToWindow(holder);
