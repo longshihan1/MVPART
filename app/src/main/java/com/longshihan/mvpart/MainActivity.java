@@ -2,25 +2,19 @@ package com.longshihan.mvpart;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.longshihan.mvpart.arch.model.User;
 import com.longshihan.mvpart.arch.viewmodel.MyViewModel0;
 import com.longshihan.mvpart.arch.viewmodel.MyViewModel1;
-import com.longshihan.mvpcomponent.*;
 import com.longshihan.mvpcomponent.arch.livedata.DataWrap;
-import com.longshihan.mvpcomponent.arch.livedata.RxLiveData;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
-import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 public class MainActivity extends AppCompatActivity {
