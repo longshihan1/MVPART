@@ -59,6 +59,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':mvpcomponent')
-//    implementation 'com.github.longshihan1:MVPART:0.2'
+//    implementation project(':mvpcomponent')
+    implementation 'com.github.longshihan1:MVPART:0.9'
+//    implementation 'com.longshihan:broca-api:1.1.1'
+//    annotationProcessor 'com.longshihan:broca-compiler:1.1.1'
 }
