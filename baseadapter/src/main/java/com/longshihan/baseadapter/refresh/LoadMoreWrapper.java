@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.longshihan.baseadapter.base.BaseViewHolder;
+import com.longshihan.baseadapter.base.BaseRecyViewHolder;
 import com.longshihan.baseadapter.utils.WrapperUtils;
 
 
@@ -49,7 +49,7 @@ public class LoadMoreWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == ITEM_TYPE_LOAD_MORE) {
             RecyclerView.ViewHolder holder;
-            holder = BaseViewHolder.createViewHolder(parent.getContext(), mLoadMoreView);
+            holder = BaseRecyViewHolder.createViewHolder(parent.getContext(), mLoadMoreView);
             return holder;
         }
         return mInnerAdapter.onCreateViewHolder(parent, viewType);

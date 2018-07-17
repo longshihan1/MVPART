@@ -18,6 +18,7 @@ import com.longshihan.mvpcomponent.intergration.ConfigModule;
 import com.longshihan.mvpcomponent.di.module.AppModule;
 import com.longshihan.mvpcomponent.di.module.ClientModule;
 import com.longshihan.mvpcomponent.di.module.GlobalConfigModule;
+import com.longshihan.mvpcomponent.utils.AppService;
 
 import java.util.List;
 
@@ -93,6 +94,7 @@ public class GlobalConfiguration implements ConfigModule {
                     }
                 })
                 .build();
+         AppService.baseurls.put("toutiao","Http://XXXXXXXXXXXXXXX");
 
     }
 
