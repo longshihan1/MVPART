@@ -2,9 +2,11 @@ package com.longshihan.mvpart;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.longshihan.baseadapter.base.BaseRecyViewHolder;
+import com.longshihan.baseadapter.base.BaseViewHolder;
+import com.longshihan.mvpart.arch.model.StringItem;
 
 /**
  * Created by LONGHE001.
@@ -14,18 +16,19 @@ import com.longshihan.baseadapter.base.BaseRecyViewHolder;
  * @function
  */
 
-public class StringTextViewHolder extends BaseRecyViewHolder<String>{
+public class StringTextViewHolder extends BaseViewHolder<StringItem> {
     public TextView textView;
+    public LinearLayout linearLayout;
     public StringTextViewHolder(Context context, View itemView) {
         super(context, itemView);
         textView=itemView.findViewById(R.id.main_txt3);
+        linearLayout=itemView.findViewById(R.id.main_lin);
     }
 
     @Override
-    public void bindHolder(String o) {
-        if (o instanceof String){
-            textView.setText(o.toString());
-        }
+    public void bindHolder(StringItem o) {
+        textView.setText(o.getName());
+        linearLayout.setBackgroundResource(o.getColor());
     }
 
     @Override

@@ -40,10 +40,10 @@ public class HeaderAndFooterWrapper extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (mHeaderViews.get(viewType) != null) {
-            RecyclerView.ViewHolder holder = HeaderViewHolder.createViewHolder(parent.getContext(),mHeaderViews.get(viewType));
+            FooterViewHolder holder =new FooterViewHolder(parent.getContext(),mHeaderViews.get(viewType));
             return holder;
         } else if (mFootViews.get(viewType) != null) {
-            RecyclerView.ViewHolder holder = FooterViewHolder.createViewHolder(parent.getContext(),mFootViews.get(viewType));
+            FooterViewHolder holder =new FooterViewHolder(parent.getContext(),mFootViews.get(viewType));
             return holder;
         }
         return mInnerAdapter.onCreateViewHolder(parent, viewType);
