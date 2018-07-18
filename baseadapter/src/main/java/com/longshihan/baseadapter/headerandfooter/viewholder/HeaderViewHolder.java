@@ -3,7 +3,7 @@ package com.longshihan.baseadapter.headerandfooter.viewholder;
 import android.content.Context;
 import android.view.View;
 
-import com.longshihan.baseadapter.base.BaseRecyViewHolder;
+import com.longshihan.baseadapter.base.BaseViewHolder;
 
 
 /**
@@ -14,7 +14,7 @@ import com.longshihan.baseadapter.base.BaseRecyViewHolder;
  * @function
  */
 
-public class HeaderViewHolder extends BaseRecyViewHolder<String> {
+public class HeaderViewHolder extends BaseViewHolder<String> {
     public HeaderViewHolder(Context context, View itemView) {
         super(context,itemView);
     }

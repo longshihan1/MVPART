@@ -1,12 +1,4 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-if (isModule.toBoolean()) {
-    // 注：需要配置符号表时，使用bugly插件
-    apply plugin: 'bugly'
-    bugly {
-        appId = '0e8a6a631e'
-        appKey = '5722acf9-c696-4b07-bfa2-10a0fb7194d4'
-    }
-}
+//library
 project.ext {
     setDefaultConfig = {
         extension ->
@@ -20,14 +12,6 @@ project.ext {
                     versionName rootProject.ext.android["versionName"]
                     flavorDimensions "color"
                     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-                    javaCompileOptions {
-                        annotationProcessorOptions {
-                            println(""+extension.getName())
-                            arguments = [moduleName: extension.getName()]
-                        }
-                    }
-
-
                 }
 
                 lintOptions {
@@ -37,14 +21,12 @@ project.ext {
             }
             extension.dependencies {
                 implementation fileTree(dir: 'libs', include: ['*.jar'])
-                annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
             }
     }
     setDependencies = {
         extension ->
             extension.dependencies {
                 implementation fileTree(dir: 'libs', include: ['*.jar'])
-                annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
             }
     }
 

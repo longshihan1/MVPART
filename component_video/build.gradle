@@ -1,4 +1,4 @@
-apply from: "${rootProject.rootDir}/library_config.gradle"
+apply from: "${rootProject.rootDir}/module_config.gradle"
 apply plugin: 'com.android.library'
 
 android {
@@ -6,10 +6,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-//    api project(':mvpcomponent')
-    provided rootProject.ext.dependencies["recyclerview-v7"]
+    api project(':mvpcomponent')
 }
