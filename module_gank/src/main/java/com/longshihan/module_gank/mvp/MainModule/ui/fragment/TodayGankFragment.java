@@ -103,7 +103,7 @@ public class TodayGankFragment extends BaseMVPFragment<TodayPersenter> implement
     }
 
     private void loadData(int page) {
-        mPresenter.getDetail(page + "");
+//        mPresenter.getDetail(page + "");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.longshihan.module_gank.mvp.MainModule.ui.activity;
 
+import android.graphics.Rect;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,6 +11,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,6 +23,10 @@ import com.longshihan.module_gank.mvp.MainModule.ui.fragment.IOSFragment;
 import com.longshihan.module_gank.mvp.MainModule.ui.fragment.TodayGankFragment;
 import com.longshihan.module_gank.mvp.MainModule.ui.fragment.VideoFragment;
 import com.longshihan.module_gank.mvp.MainModule.ui.fragment.WelfareFragment;
+import com.longshihan.module_gank.utils.ScreenShotListenManager;
+import com.longshihan.module_gank.utils.ShotDialogUtils;
+import com.longshihan.mvpcomponent.utils.ArmsUtils;
+import com.orhanobut.logger.Logger;
 
 @Route(path = "/gank/MainActivity")
 public class GankMainActivity extends AppCompatActivity implements NavigationView
@@ -35,6 +41,7 @@ public class GankMainActivity extends AppCompatActivity implements NavigationVie
     private FrontEndFragment mFrontEndFragment;
     private IOSFragment mIOSFragment;
     private VideoFragment mVideoFragment;
+    private ScreenShotListenManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,22 @@ public class GankMainActivity extends AppCompatActivity implements NavigationVie
         setContentView(R.layout.toutiao_activity_main);
 
         initdata();
+
+
+        manager = ScreenShotListenManager.newInstance(this);
+        manager.setListener(
+                new ScreenShotListenManager.OnScreenShotListener() {
+                    public void onShot(String imagePath) {
+                        // do something
+                        Logger.d(imagePath);
+                        ShotDialogUtils.showAllDialog(GankMainActivity.this,imagePath);
+
+
+
+                    }
+                }
+        );
+        manager.startListen();
     }
 
     private void initdata() {
@@ -68,6 +91,7 @@ public class GankMainActivity extends AppCompatActivity implements NavigationVie
         mAndroidFragment = new AndroidFragment();
         mFrontEndFragment = new FrontEndFragment();
         mIOSFragment = new IOSFragment();
+        mVideoFragment=new VideoFragment();
 
         mFragmentManager = getSupportFragmentManager();
         mTransition = mFragmentManager.beginTransaction();

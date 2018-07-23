@@ -1,13 +1,16 @@
-package com.longshihan.module_gank.config;
+package com.longshihan.mvpart.config;
 
 import android.app.Application;
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
 
 import com.google.gson.GsonBuilder;
-import com.longshihan.module_gank.http.GankApi;
+import com.longshihan.mvpart.http.AppApi;
 import com.longshihan.mvpcomponent.BuildConfig;
 import com.longshihan.mvpcomponent.base.delegate.AppLifecycles;
+import com.longshihan.mvpcomponent.di.module.AppModule;
+import com.longshihan.mvpcomponent.di.module.ClientModule;
+import com.longshihan.mvpcomponent.di.module.GlobalConfigModule;
 import com.longshihan.mvpcomponent.http.RequestInterceptor;
 import com.longshihan.mvpcomponent.http.base.ActivityLifecycleCallbacksImpl;
 import com.longshihan.mvpcomponent.http.base.FragmentLifecycleCallbacksImpl;
@@ -15,9 +18,6 @@ import com.longshihan.mvpcomponent.http.base.GlobalHttpHandlerImpl;
 import com.longshihan.mvpcomponent.http.base.OkHttpConfig;
 import com.longshihan.mvpcomponent.http.base.ResponseErrorListenerImpl;
 import com.longshihan.mvpcomponent.intergration.ConfigModule;
-import com.longshihan.mvpcomponent.di.module.AppModule;
-import com.longshihan.mvpcomponent.di.module.ClientModule;
-import com.longshihan.mvpcomponent.di.module.GlobalConfigModule;
 import com.longshihan.mvpcomponent.utils.AppService;
 
 import java.util.List;
@@ -29,7 +29,7 @@ import retrofit2.Retrofit;
 /**
  * @author Administrator
  * @time 2017/8/16 17:20
- * @des 类的作用：单读下的全局配置信息在此配置,需要将此实现类声明到 AndroidManifest 中
+ * @des 类的作用
  */
 
 public class GlobalConfiguration implements ConfigModule {
@@ -64,7 +64,7 @@ public class GlobalConfiguration implements ConfigModule {
         //                })
         //统一注入到ClientModule里面对OKhttp做操作
 
-        builder.baseurl(GankApi.BASE_URL)
+        builder.baseurl(AppApi.BASE_URL)
                 .globalHttpHandler(new GlobalHttpHandlerImpl())
                 .responseErrorListener(new ResponseErrorListenerImpl())
                 .gsonConfiguration(new AppModule.GsonConfiguration() {
@@ -94,7 +94,7 @@ public class GlobalConfiguration implements ConfigModule {
                     }
                 })
                 .build();
-//         AppService.baseurls.put("toutiao","Http://XXXXXXXXXXXXXXX");
+         AppService.baseurls.put("toutiao","Http://XXXXXXXXXXXXXXX");
 
     }
 

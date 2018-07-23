@@ -46,7 +46,7 @@ android {
             }
         }
     }
-    resourcePrefix "mian_"
+//    resourcePrefix "mian_"
     productFlavors {
         client {
         }
