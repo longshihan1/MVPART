@@ -1,12 +1,13 @@
-package com.longshihan.module_gank.config;
+package com.longshihan.mvpart.config;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.longshihan.module_gank.utils.ScreenShotListenManager;
-import com.longshihan.module_gank.utils.ShotDialogUtils;
+import com.longshihan.mvpart.utils.ScreenShotListenManager;
+import com.longshihan.mvpart.utils.ShotDialogUtils;
 import com.longshihan.mvpcomponent.BuildConfig;
 import com.longshihan.mvpcomponent.base.delegate.AppLifecycles;
+import com.longshihan.mvpcomponent.intergration.AppManager;
 import com.longshihan.mvpcomponent.utils.ArmsUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -51,18 +52,20 @@ public class AppLifecyclesImpl implements AppLifecycles {
         if (BuildConfig.TDEBUG) {   // 这两行必须写在init之前，否则这些配置在init过程中将无效
             Logger.addLogAdapter(new AndroidLogAdapter());//debug下使用Logger日志模块
         }
+        manager = ScreenShotListenManager.newInstance(application);
+        manager.setListener(
+                new ScreenShotListenManager.OnScreenShotListener() {
+                    public void onShot(String imagePath) {
+                        // do something
+                        Logger.d(imagePath);
+                        ShotDialogUtils.showAllDialog(ArmsUtils.obtainAppComponentFromContext(application).appManager().getCurrentActivity(),imagePath);
+                    }
+                }
+        );
+        manager.startListen();
 
-//        manager = ScreenShotListenManager.newInstance(application);
-//        manager.setListener(
-//                new ScreenShotListenManager.OnScreenShotListener() {
-//                    public void onShot(String imagePath) {
-//                        // do something
-//                        Logger.d(imagePath);
-//                        ShotDialogUtils.showAllDialog(ArmsUtils.getAppManager(ArmsUtils.obtainAppComponentFromContext(application)).getCurrentActivity(),imagePath);
-//                    }
-//                }
-//        );
-//        manager.startListen();
+
+
     }
 
     @Override
