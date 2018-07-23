@@ -9,6 +9,7 @@ import com.longshihan.mvpcomponent.base.delegate.AppDelegate;
 import com.longshihan.mvpcomponent.base.delegate.AppLifecycles;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.tencent.bugly.crashreport.CrashReport;
 
 
 /**
@@ -34,12 +35,14 @@ public class BaseApplication extends Application implements App {
         super.attachBaseContext(base);
         this.mAppDelegate = new AppDelegate(base);
         this.mAppDelegate.attachBaseContext(base);
+
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         this.mAppDelegate.onCreate(this);
+        CrashReport.initCrashReport(getApplicationContext(), "0e8a6a631e", true);
     }
 
     /**

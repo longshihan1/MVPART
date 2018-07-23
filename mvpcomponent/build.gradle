@@ -15,6 +15,10 @@ android {
         buildConfigField("boolean","TDEBUG","true")
         // dex突破65535的限制
         multiDexEnabled true
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
     buildTypes {
         release {
@@ -151,4 +155,6 @@ dependencies {
     annotationProcessor  rootProject.ext.dependencies["lifecycle-compiler"]
     api rootProject.ext.dependencies["lifecycle-commonjava8"]
     api rootProject.ext.dependencies["lifecycle-reactivestreams"]
+    api 'com.tencent.bugly:crashreport:latest.release'
+    api 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
 }

@@ -9,5 +9,5 @@ package com.longshihan.mvpart.http;
  */
 
 public class AppApi {
-    public static final String BASE_URL="";
+    public static final String BASE_URL="http://www.baidu.com";
 }

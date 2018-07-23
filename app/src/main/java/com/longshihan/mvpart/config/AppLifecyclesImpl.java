@@ -19,7 +19,6 @@ import com.orhanobut.logger.Logger;
  */
 
 public class AppLifecyclesImpl implements AppLifecycles {
-    private ScreenShotListenManager manager;
 
     @Override
     public void attachBaseContext(Context base) {
@@ -52,18 +51,8 @@ public class AppLifecyclesImpl implements AppLifecycles {
         if (BuildConfig.TDEBUG) {   // 这两行必须写在init之前，否则这些配置在init过程中将无效
             Logger.addLogAdapter(new AndroidLogAdapter());//debug下使用Logger日志模块
         }
-        manager = ScreenShotListenManager.newInstance(application);
-        manager.setListener(
-                new ScreenShotListenManager.OnScreenShotListener() {
-                    public void onShot(String imagePath) {
-                        // do something
-                        Logger.d(imagePath);
-                        ShotDialogUtils.showAllDialog(ArmsUtils.obtainAppComponentFromContext(application).appManager().getCurrentActivity(),imagePath);
-                    }
-                }
-        );
-        manager.startListen();
 
+        Logger.d("正常了");
 
 
     }
