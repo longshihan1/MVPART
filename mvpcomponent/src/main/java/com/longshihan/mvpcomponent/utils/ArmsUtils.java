@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.longshihan.mvpcomponent.di.component.AppComponent;
 import com.longshihan.mvpcomponent.base.App;
+import com.longshihan.mvpcomponent.intergration.AppManager;
 import com.longshihan.mvpcomponent.strategy.imageloader.ImageLoader;
 
 import java.security.MessageDigest;
@@ -370,4 +371,8 @@ public class ArmsUtils {
         return obtainAppComponentFromContext(fragment).imageLoader();
     }
 
+
+    public static AppManager getAppManager(AppComponent appComponent){
+        return appComponent.appManager();
+    }
 }
