@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 
@@ -17,6 +18,11 @@ import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.UUID;
+
+import static android.os.Environment.DIRECTORY_DCIM;
 
 /**
  * Created by LONGHE001.
@@ -27,8 +33,6 @@ import java.io.FileInputStream;
  */
 
 public class ScreenShotView extends android.support.v7.widget.AppCompatImageView {
-
-    private Bitmap b=null;
     private Context context;
 
     public ScreenShotView(Context context) {
@@ -48,40 +52,32 @@ public class ScreenShotView extends android.support.v7.widget.AppCompatImageView
         this.context=context;
     }
 
-    public void addShotPath(String filePath,@DrawableRes int res,int optionSize) throws Exception {
-        int IMAGE_MAX_SIZE = (int) (DeviceUtils.getScreenWidth(context)/optionSize);
-
+    public void addShotPath(String filePath,@DrawableRes int res) throws Exception {
         File f = new File(filePath);
         if (f == null){
             return ;
         }
-        //Decode image size
-        BitmapFactory.Options o = new BitmapFactory.Options();
-        o.inJustDecodeBounds = true;
-
-        FileInputStream fis = new FileInputStream(f);
-        BitmapFactory.decodeStream(fis, null, o);
-        fis.close();
-
-        int scale = 1;
-        if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
-            scale = (int) Math.pow(2, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
-        }
-
         //手动截屏
         Rect rectangle= new Rect();
         ((Activity)context).getWindow().getDecorView().getWindowVisibleDisplayFrame(rectangle);
-        BitmapFactory.Options o2 = new BitmapFactory.Options();
-        o2.inSampleSize = scale;
-        fis = new FileInputStream(f);
-        b = BitmapFactory.decodeStream(fis, null, o2);
-        b = Bitmap.createBitmap(b, 0, rectangle.top/scale, (int) DeviceUtils.getScreenWidth(context)/scale,  rectangle.height()/scale);
+        FileInputStream fis = new FileInputStream(f);
+        Bitmap  b = BitmapFactory.decodeStream(fis, null, null);
+        b = Bitmap.createBitmap(b, 0, rectangle.top, (int) DeviceUtils.getScreenWidth(context),  rectangle.height());
         fis.close();
 
         Drawable drawable = getResources().getDrawable(res);
         BitmapDrawable bd = (BitmapDrawable) drawable;
         Bitmap bmm = bd.getBitmap();
-        setImageBitmap(combineBitmap(b,bmm));
+        Bitmap resultBitmap=combineBitmap(b,bmm);
+
+        saveBitmap(context,resultBitmap);
+
+        Matrix matrix = new Matrix();
+        matrix.setScale(0.3f, 0.3f);
+
+        Bitmap smallBitmap = Bitmap.createBitmap(resultBitmap, 0, 0, resultBitmap.getWidth(),
+                resultBitmap.getHeight(), matrix, true);
+        setImageBitmap(smallBitmap);
     }
 
 
@@ -89,13 +85,53 @@ public class ScreenShotView extends android.support.v7.widget.AppCompatImageView
     public  Bitmap combineBitmap(Bitmap first, Bitmap second) {
         int width = first.getWidth();
         Matrix matrix = new Matrix();
-        matrix.postScale((float) width/second.getWidth(), (float) width/second.getWidth());// 使用后乘
+        matrix.postScale((float) width/second.getWidth(), (float) width/second.getWidth());
         second = Bitmap.createBitmap(second, 0, 0, second.getWidth(), second.getHeight(),matrix,false);
         int height = first.getHeight() + second.getHeight();
-        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+        Bitmap result = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(result);
         canvas.drawBitmap(first, 0, 0, null);
         canvas.drawBitmap(second, 0,first.getHeight(), null);
         return result;
+    }
+
+    private static final String SD_PATH = "/sdcard/dskqxt/pic/";
+    private static final String IN_PATH = "/dskqxt/pic/";
+
+    /**
+     * 随机生产文件名
+     *
+     * @return
+     */
+    private  String generateFileName() {
+        return UUID.randomUUID().toString();
+    }
+
+
+    /**
+     * 保存bitmap到本地
+     *
+     * @param context
+     * @param mBitmap
+     * @return
+     */
+    public  String saveBitmap(Context context, Bitmap mBitmap) {
+        File filePic=null;
+        try {
+            filePic=context.getExternalFilesDir(DIRECTORY_DCIM);
+            if (!filePic.exists()) {
+                filePic.getParentFile().mkdirs();
+                filePic.createNewFile();
+            }
+            FileOutputStream fos = new FileOutputStream(filePic);
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return filePic.getAbsolutePath();
     }
 }

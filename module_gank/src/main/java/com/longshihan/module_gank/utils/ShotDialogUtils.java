@@ -42,7 +42,7 @@ public class ShotDialogUtils {
                 LinearLayout linCancel = (LinearLayout) mView.findViewById(R.id.layout_screenshotlin);
                 ScreenShotView screenShotView=new ScreenShotView(context);
                 try {
-                    screenShotView.addShotPath(filepath,R.mipmap.ic_launche,3);
+                    screenShotView.addShotPath(filepath,R.mipmap.ic_launche);
                 } catch (Exception e) {
                     Logger.d(e);
                     return;

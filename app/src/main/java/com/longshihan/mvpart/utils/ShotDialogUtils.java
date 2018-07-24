@@ -1,10 +1,9 @@
 package com.longshihan.mvpart.utils;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.os.Handler;
-import android.os.Looper;
+import android.content.Context;
+import android.os.CountDownTimer;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,30 +21,62 @@ import com.longshihan.mvpart.R;
 
 public class ShotDialogUtils {
 
+    public Context context;
+    private ScreenShotListenManager manager;
+    private  ScreenShotDialog dialog;
+    private   CountDownTimer timer;
+
+    public ShotDialogUtils(Context context) {
+        this.context = context;
+    }
+
+
+    public void startScreenShot(){
+        manager = ScreenShotListenManager.newInstance(context);
+        manager.setListener(
+                new ScreenShotListenManager.OnScreenShotListener() {
+                    public void onShot(String imagePath) {
+                        saveScreenShotJPG(imagePath);
+                    }
+                }
+        );
+        manager.startListen();
+    }
     //全局弹框
-    public static void showAllDialog(final Activity context, final String filepath) {
+    public void saveScreenShotJPG(final String filepath) {
         if (context == null) {
             return;
         }
-//        if (Looper.getMainLooper() == Looper.myLooper()) {
-//            Log.e("TAS", "主线程");
-//        } else {
-//            Log.e("TAS", "不是主线程(子线程)");
-//        }
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
+        final ShotBitmapUtils bitmapUtils=new ShotBitmapUtils(context);
+        bitmapUtils.setListener(new OnSaveScreenShotListener() {
             @Override
-            public void run() {
-                //此时已在主线程中，可以更新UI了
+            public void onSaveBitmap(String filePath) {
+                showDialog(filePath);
+                bitmapUtils.onDestory();
+            }
+
+            @Override
+            public void onSaveFailure() {
+                bitmapUtils.onDestory();
+            }
+        });
+        bitmapUtils.addShotPath(filepath,R.drawable.test);
+    }
+
+    public void showDialog(final String filepath) {
+        /**
+         * 拿到修改之后的数据
+         */
+
+        //此时已在主线程中，可以更新UI了
+        final ScreenShotView screenShotView = new ScreenShotView(context);
+        screenShotView.setListener(new OnShowScreenShotListener() {
+            @Override
+            public void showSuccess() {
                 View mView = LayoutInflater.from(context).inflate(R.layout.layout_screenshot, null);
-                LinearLayout linCancel = (LinearLayout) mView.findViewById(R.id.layout_screenshotlin);
-                ScreenShotView screenShotView=new ScreenShotView(context);
-                try {
-                    screenShotView.addShotPath(filepath,R.drawable.back_right);
-                } catch (Exception e) {
-                    return;
-                }
-                linCancel.addView(screenShotView);
-                Dialog dialog = new Dialog(context);
+                LinearLayout linCancel = mView.findViewById(R.id.layout_screenshotlin);
+                linCancel.addView(screenShotView,0);
+                dialog = new ScreenShotDialog(context);
                 dialog.setContentView(mView);
                 dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 if (!dialog.isShowing()) {
@@ -53,14 +84,46 @@ public class ShotDialogUtils {
                 }
                 DisplayMetrics dm = context.getResources().getDisplayMetrics();
                 int displayWidth = dm.widthPixels;
-                int displayHeight = dm.heightPixels;
                 android.view.WindowManager.LayoutParams p = dialog.getWindow().getAttributes();  //获取对话框当前的参数值
-                p.width = (int) (displayWidth * 0.8);    //宽度设置为屏幕的0.5
-                p.height = (int) (displayHeight * 0.35);    //高度设置为屏幕的0.5
+                p.width = (int) (displayWidth * 0.36);
+                p.dimAmount = 0;
+                p.gravity = Gravity.RIGHT;
+                p.x=20;
                 dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
                 dialog.setCancelable(false);
                 dialog.getWindow().setAttributes(p);     //设置生效
+                timer = new CountDownTimer(5*1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        if (dialog!=null&&dialog.isShowing()) {
+                            dialog.dismiss();
+                        }
+                    }
+                }.start();
+            }
+
+            @Override
+            public void showError() {
+                //展示不出数据就不显示dialog
+                screenShotView.onDestory();
             }
         });
+        screenShotView.addShotPath(filepath);
+    }
+
+    public void onDestory(){
+        if (manager!=null){
+            manager.stopListen();
+        }
+        if (dialog!=null&&dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        if (timer!=null){
+            timer.cancel();
+        }
     }
 }

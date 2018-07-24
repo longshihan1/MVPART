@@ -57,7 +57,7 @@ ext {
             "dagger2"                 : "com.google.dagger:dagger:${version["dagger2SdkVersion"]}",
             "dagger2-compiler"        : "com.google.dagger:dagger-compiler:${version["dagger2SdkVersion"]}",
             "gson"                    : "com.google.code.gson:gson:2.8.1",
-            "multidex"                : "com.android.support:multidex:1.0.1",
+            "multidex"                : "com.android.support:multidex:1.0.2",
             "javax.annotation"        : "javax.annotation:jsr250-api:1.0",
             "arouter"                 : "com.alibaba:arouter-api:1.2.2",
             "arouter-compiler"        : "com.alibaba:arouter-compiler:1.1.3",

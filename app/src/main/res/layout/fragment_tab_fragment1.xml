@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".test.TabFragment1">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="match_parent"
+        android:layout_width="20dp"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="010203040506070809101112131415161718192021222324252627282930313233"/>
 
 </FrameLayout>

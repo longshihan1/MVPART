@@ -3,6 +3,7 @@ package com.longshihan.mvpart.config;
 import android.app.Application;
 import android.content.Context;
 
+import com.longshihan.mvpart.Main4Activity;
 import com.longshihan.mvpart.utils.ScreenShotListenManager;
 import com.longshihan.mvpart.utils.ShotDialogUtils;
 import com.longshihan.mvpcomponent.BuildConfig;
@@ -19,6 +20,8 @@ import com.orhanobut.logger.Logger;
  */
 
 public class AppLifecyclesImpl implements AppLifecycles {
+
+    private ScreenShotListenManager manager;
 
     @Override
     public void attachBaseContext(Context base) {
@@ -53,7 +56,17 @@ public class AppLifecyclesImpl implements AppLifecycles {
         }
 
         Logger.d("正常了");
-
+//        manager = ScreenShotListenManager.newInstance(application);
+//        manager.setListener(
+//                new ScreenShotListenManager.OnScreenShotListener() {
+//                    public void onShot(String imagePath) {
+//                        // do something
+//                        Logger.d(imagePath);
+//                        ShotDialogUtils.showAllDialog(Main4Activity.class,imagePath);
+//                    }
+//                }
+//        );
+//        manager.startListen();
 
     }
 

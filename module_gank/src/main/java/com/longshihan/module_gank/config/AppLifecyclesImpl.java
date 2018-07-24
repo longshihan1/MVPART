@@ -52,17 +52,17 @@ public class AppLifecyclesImpl implements AppLifecycles {
             Logger.addLogAdapter(new AndroidLogAdapter());//debug下使用Logger日志模块
         }
 
-//        manager = ScreenShotListenManager.newInstance(application);
-//        manager.setListener(
-//                new ScreenShotListenManager.OnScreenShotListener() {
-//                    public void onShot(String imagePath) {
-//                        // do something
-//                        Logger.d(imagePath);
-//                        ShotDialogUtils.showAllDialog(ArmsUtils.getAppManager(ArmsUtils.obtainAppComponentFromContext(application)).getCurrentActivity(),imagePath);
-//                    }
-//                }
-//        );
-//        manager.startListen();
+        manager = ScreenShotListenManager.newInstance(application);
+        manager.setListener(
+                new ScreenShotListenManager.OnScreenShotListener() {
+                    public void onShot(String imagePath) {
+                        // do something
+                        Logger.d(imagePath);
+                        ShotDialogUtils.showAllDialog(ArmsUtils.getAppManager(ArmsUtils.obtainAppComponentFromContext(application)).getCurrentActivity(),imagePath);
+                    }
+                }
+        );
+        manager.startListen();
     }
 
     @Override
