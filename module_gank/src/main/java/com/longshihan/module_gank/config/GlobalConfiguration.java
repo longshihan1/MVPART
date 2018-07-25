@@ -94,7 +94,7 @@ public class GlobalConfiguration implements ConfigModule {
                     }
                 })
                 .build();
-//         AppService.baseurls.put("toutiao","Http://XXXXXXXXXXXXXXX");
+         AppService.baseurls.put("toutiao","Http://XXXXXXXXXXXXXXX");
 
     }
 
