@@ -1,1 +1,1 @@
-include ':app', ':mvpcomponent', ':module_gank', ':module_book', ':baseadapter', ':component_video'
+include ':app', ':mvpcomponent', ':module_gank', ':module_book', ':baseadapter', ':component_video', ':myplugin'
