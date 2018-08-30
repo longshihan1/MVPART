@@ -42,6 +42,7 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
         try {
             Request.Builder builder = request.newBuilder();
+            builder.addHeader("Connection", "close");
             //从request中获取headers，通过给定的键url_name
             List<String> headerValues = request.headers(AppService.HEADER_KEY);
             if (headerValues != null && headerValues.size() > 0) {

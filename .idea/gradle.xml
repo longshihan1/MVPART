@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/module_book" />
             <option value="$PROJECT_DIR$/module_gank" />
             <option value="$PROJECT_DIR$/mvpcomponent" />
+            <option value="$PROJECT_DIR$/myplugin" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

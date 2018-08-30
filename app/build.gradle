@@ -1,6 +1,6 @@
 apply from: "${rootProject.rootDir}/module_config.gradle"
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.longshihan.gradle'
 def buildTime() {
     def date = new Date()
     def formattedDate = date.format('yyyy-MM-dd', TimeZone.getTimeZone("UTC"))
