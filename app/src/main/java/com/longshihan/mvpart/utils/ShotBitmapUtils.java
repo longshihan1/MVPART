@@ -25,7 +25,7 @@ import java.util.UUID;
 import static android.os.Environment.DIRECTORY_PICTURES;
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/24 0024
  * @des 截图和二维码拼接，返回文件地址

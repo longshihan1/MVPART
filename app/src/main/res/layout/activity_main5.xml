@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_wificonnsuccessrl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient1e5da6"
+    android:paddingTop="45dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <LinearLayout
+            android:id="@+id/layout_wificonnsuccess_lin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/layout_wificonnsuccess_img"
+                android:layout_width="26dp"
+                android:layout_height="26dp"/>
+
+            <TextView
+                android:id="@+id/layout_wificonnsuccess_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="9dp"
+                android:textColor="@color/white"
+                android:textSize="22dp"
+                android:text="Huazhu-JiHotel"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/layout_wificonnsuccess_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_wificonnsuccess_lin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="75dp"
+            android:layout_marginTop="10dp"
+            android:text="连接成功"
+            android:textColor="@color/white"
+            android:textSize="14dp"/>
+
+        <ImageView
+            android:id="@+id/layout_wificonnsuccess_bgimg"
+            android:layout_width="match_parent"
+            android:layout_height="91dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_wifisuccesstop"
+            />
+
+        <ImageView
+            android:id="@+id/layout_wificonnsuccess_planeimg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="90dp"
+            android:background="@drawable/icon_wifisuccessplane"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_wificonnsuccess_bottomrl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_radius2_topwhite">
+
+            <RelativeLayout
+                android:id="@+id/layout_wificonnsuccess_contanerrl"
+                android:layout_width="278dp"
+                android:layout_height="278dp"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/layout_wificonnsuccess_bigimg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bg_wifisuccess"
+                    />
+
+                <ImageView
+                    android:id="@+id/layout_wificonnsuccess_goodimg"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/icon_wifigood"
+                    />
+
+                <TextView
+                    android:id="@+id/layout_wificonnsuccess_noticetxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layout_wificonnsuccess_goodimg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="13dp"
+                    android:gravity="center"
+                    android:textColor="#ff8500"
+                    tools:text="3秒连网成功！\n击败了全国80%的住客~"/>
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/layout_wificonnsuccess_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="60dp"
+                android:paddingBottom="13dp"
+                android:paddingLeft="80dp"
+                android:paddingRight="80dp"
+                android:paddingTop="13dp"
+                android:text="完成"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>
+

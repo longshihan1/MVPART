@@ -7,7 +7,7 @@ import com.longshihan.baseadapter.base.BaseViewHolder;
 
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/12 0012
  * @des

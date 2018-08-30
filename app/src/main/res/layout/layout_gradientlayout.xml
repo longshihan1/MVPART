@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/layout_gradienticon1"
+        android:layout_width="8dp"
+        android:layout_height="14dp"
+        android:alpha="0.4"
+        android:background="@mipmap/icon_search_page_right_arrow"/>
+
+    <ImageView
+        android:id="@+id/layout_gradienticon2"
+        android:layout_width="8dp"
+        android:layout_height="14dp"
+        android:alpha="0.4"
+        android:background="@mipmap/icon_search_page_right_arrow"/>
+
+    <ImageView
+        android:id="@+id/layout_gradienticon3"
+        android:layout_width="8dp"
+        android:layout_height="14dp"
+        android:alpha="0.4"
+        android:background="@mipmap/icon_search_page_right_arrow"/>
+
+    <ImageView
+        android:id="@+id/layout_gradienticon4"
+        android:layout_width="8dp"
+        android:layout_height="14dp"
+        android:alpha="0.4"
+        android:background="@mipmap/icon_search_page_right_arrow"/>
+
+    <ImageView
+        android:id="@+id/layout_gradienticon5"
+        android:layout_width="8dp"
+        android:layout_height="14dp"
+        android:alpha="0.4"
+        android:background="@mipmap/icon_search_page_right_arrow"/>
+
+    <ImageView
+        android:id="@+id/layout_gradienticon6"
+        android:layout_width="8dp"
+        android:layout_height="14dp"
+        android:alpha="0.4"
+        android:background="@mipmap/icon_search_page_right_arrow"/>
+
+    <ImageView
+        android:id="@+id/layout_gradienticon7"
+        android:layout_width="8dp"
+        android:layout_height="14dp"
+        android:alpha="0.4"
+        android:background="@mipmap/icon_search_page_right_arrow"/>
+
+    <ImageView
+        android:id="@+id/layout_gradienticon8"
+        android:layout_width="8dp"
+        android:layout_height="14dp"
+        android:alpha="0.4"
+        android:background="@mipmap/icon_search_page_right_arrow"/>
+</LinearLayout>

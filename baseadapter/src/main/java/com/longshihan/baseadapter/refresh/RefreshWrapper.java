@@ -15,7 +15,7 @@ import com.longshihan.baseadapter.headerandfooter.viewholder.FootItemViewBinder;
 
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/12 0012
  * @des 刷新的设配器包装类

@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/13 0013
  * @des 配置在黏贴的adapter

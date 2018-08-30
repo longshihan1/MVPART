@@ -15,7 +15,7 @@ import com.longshihan.baseadapter.utils.WrapperUtils;
 
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/11 0011
  * @des 添加头尾的设置器包装类

@@ -9,7 +9,7 @@ import io.reactivex.Observer;
 import io.reactivex.functions.Function;
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/4 0004
  * @des

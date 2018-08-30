@@ -1,7 +1,7 @@
 package com.longshihan.baseadapter.refresh.listener;
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/13 0013
  * @des 这是为下拉头准备的用于关联内容体的回调

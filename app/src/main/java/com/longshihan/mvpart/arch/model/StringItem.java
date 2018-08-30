@@ -3,7 +3,7 @@ package com.longshihan.mvpart.arch.model;
 import android.support.annotation.ColorRes;
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/18 0018
  * @des

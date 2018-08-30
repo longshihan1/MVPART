@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/16 0016
  * @des

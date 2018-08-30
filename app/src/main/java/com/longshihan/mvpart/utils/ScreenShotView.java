@@ -31,7 +31,7 @@ import static android.os.Environment.DIRECTORY_DCIM;
 import static android.os.Environment.DIRECTORY_PICTURES;
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/23 0023
  * @des

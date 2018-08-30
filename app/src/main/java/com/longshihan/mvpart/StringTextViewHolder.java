@@ -9,7 +9,7 @@ import com.longshihan.baseadapter.base.BaseViewHolder;
 import com.longshihan.mvpart.arch.model.StringItem;
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/17 0017
  * @des

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.longshihan.mvpart">
+          package="com.longshihan.mvpart">
 
     <application
         android:name="com.longshihan.mvpcomponent.base.BaseApplication"
@@ -12,14 +12,19 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.longshihan.mvpart.config.GlobalConfiguration"
-            android:value="ConfigModule" />
-        <activity android:name=".MainActivity" />
+            android:value="ConfigModule"/>
+
+        <activity android:name=".MainActivity"/>
         <activity android:name=".Main2Activity">
         </activity>
         <activity android:name=".Main4Activity">
+
+        </activity>
+        <activity android:name=".Main5Activity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
     </application>

@@ -7,7 +7,7 @@ import android.arch.lifecycle.ViewModel;
 import com.longshihan.mvpart.arch.model.User;
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/3 0003
  * @des

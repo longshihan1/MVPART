@@ -13,7 +13,7 @@ import com.longshihan.baseadapter.headerandfooter.model.FooterMultiTypeItem;
 
 
 /**
- * Created by LONGHE001.
+ * Created by longshihan.
  *
  * @time 2018/7/13 0013
  * @des
