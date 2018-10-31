@@ -2,6 +2,7 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 
 dependencies {
+    compile 'com.android.tools.build:gradle:3.0.1'
     compile gradleApi()//gradle sdk
     compile localGroovy()//groovy sdk
 }
@@ -11,8 +12,8 @@ repositories {
 }
 
 
-group='com.longshihan.myplugin'
-version='1.0.5'
+group='com.longshihan.mvpplugin'
+version='1.0.54'
 
 uploadArchives {
     repositories {
@@ -21,7 +22,7 @@ uploadArchives {
             // repository(url: "http://www.xxx.com/repos") {
             //    authentication(userName: "admin", password: "admin")
             // }
-            repository(url: uri('/Users/longshihan/code/repository'))
+            repository(url: uri('D:/repos'))
         }
     }
 }
