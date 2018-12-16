@@ -7,6 +7,7 @@ import com.longshihan.module_gank.utils.ScreenShotListenManager;
 import com.longshihan.module_gank.utils.ShotDialogUtils;
 import com.longshihan.mvpcomponent.BuildConfig;
 import com.longshihan.mvpcomponent.base.delegate.AppLifecycles;
+import com.longshihan.mvpcomponent.intergration.AppManager;
 import com.longshihan.mvpcomponent.utils.ArmsUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -58,7 +59,7 @@ public class AppLifecyclesImpl implements AppLifecycles {
                     public void onShot(String imagePath) {
                         // do something
                         Logger.d(imagePath);
-                        ShotDialogUtils.showAllDialog(ArmsUtils.getAppManager(ArmsUtils.obtainAppComponentFromContext(application)).getCurrentActivity(),imagePath);
+                        ShotDialogUtils.showAllDialog(AppManager.getAppManager().getCurrentActivity(),imagePath);
                     }
                 }
         );

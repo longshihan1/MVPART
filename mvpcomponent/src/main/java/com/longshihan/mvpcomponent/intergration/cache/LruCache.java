@@ -18,7 +18,6 @@ package com.longshihan.mvpcomponent.intergration.cache;
 import android.app.Application;
 import android.support.annotation.Nullable;
 
-import com.jess.arms.di.module.GlobalConfigModule;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

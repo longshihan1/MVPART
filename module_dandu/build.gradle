@@ -1,0 +1,44 @@
+apply from: "${rootProject.rootDir}/module_config.gradle"
+if (isModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+android {
+    project.ext.setDefaultConfig project
+
+    defaultConfig {
+        if (isModule.toBoolean()) {
+            applicationId "com.longshihan.module_dandu"
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            if (isModule.toBoolean()) {
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                //集成开发模式下排除debug文件夹中的所有Java文件
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':baseadapter')
+    implementation project(':mvpcomponent')
+    compile 'com.github.ksoichiro:android-observablescrollview:1.5.0'
+}

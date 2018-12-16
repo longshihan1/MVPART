@@ -19,12 +19,7 @@ import io.reactivex.functions.Function;
 public class DataObservable<T> extends Observable<T> implements LifecycleObserver {
 
     static <T> Function<Observable<T>, DataObservable<T>> toFunction(final DataCheck dataCheck) {
-        return new Function<Observable<T>, DataObservable<T>>() {
-            @Override
-            public DataObservable<T> apply(Observable<T> tObservable) {
-                return new DataObservable<>(tObservable, dataCheck);
-            }
-        };
+        return tObservable -> new DataObservable<>(tObservable, dataCheck);
     }
 
     private final Observable<T> observable;
@@ -45,7 +40,7 @@ public class DataObservable<T> extends Observable<T> implements LifecycleObserve
     protected void subscribeActual(Observer<? super T> observer) {
         dataObserver = new DataObserver<>(observer);
         observable.subscribe(dataObserver);
-        if (dataCheck.isLifecycleState(dataCheck.owner, Lifecycle.State.DESTROYED)) {
+        if (DataCheck.isLifecycleState(dataCheck.owner, Lifecycle.State.DESTROYED)) {
             if (dataObserver != null && !dataObserver.isDisposed()) {
                 dataObserver.dispose();
             }

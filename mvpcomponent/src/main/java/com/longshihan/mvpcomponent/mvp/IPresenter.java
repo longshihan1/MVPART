@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * P层的通用接口。集成LifecycleObserver，管理生命周期
  */
 
-public interface IPresenter {
+public interface IPresenter extends LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void onCreate(@NotNull LifecycleOwner owner);
