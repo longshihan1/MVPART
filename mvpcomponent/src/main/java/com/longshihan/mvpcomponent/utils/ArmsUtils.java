@@ -371,8 +371,4 @@ public class ArmsUtils {
         return obtainAppComponentFromContext(fragment).imageLoader();
     }
 
-
-    public static AppManager getAppManager(AppComponent appComponent){
-        return appComponent.appManager();
-    }
 }

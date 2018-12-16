@@ -1,5 +1,6 @@
 package com.longshihan.mvpcomponent.http;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.bumptech.glide.Priority;
@@ -8,6 +9,7 @@ import com.bumptech.glide.load.HttpException;
 import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.util.ContentLengthInputStream;
+import com.bumptech.glide.util.Preconditions;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,50 +23,55 @@ import okhttp3.ResponseBody;
 /**
  * Fetches an {@link InputStream} using the okhttp3library.
  */
-public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
+public class OkHttpStreamFetcher implements  DataFetcher<InputStream>, okhttp3.Callback {
     private static final String TAG = "OkHttpFetcher";
     private final Call.Factory client;
     private final GlideUrl url;
     private InputStream stream;
     private ResponseBody responseBody;
+    private DataCallback<? super InputStream> callback;
     private volatile Call call;
-
+    // Public API.
+    @SuppressWarnings("WeakerAccess")
     public OkHttpStreamFetcher(Call.Factory client, GlideUrl url) {
         this.client = client;
         this.url = url;
     }
 
     @Override
-    public void loadData(Priority priority,final DataCallback<? super InputStream> callback){
+    public void loadData(@NonNull Priority priority,
+                         @NonNull final DataCallback<? super InputStream> callback) {
         Request.Builder requestBuilder = new Request.Builder().url(url.toStringUrl());
         for (Map.Entry<String, String> headerEntry : url.getHeaders().entrySet()) {
             String key = headerEntry.getKey();
             requestBuilder.addHeader(key, headerEntry.getValue());
         }
         Request request = requestBuilder.build();
+        this.callback = callback;
 
         call = client.newCall(request);
-        call.enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                if (Log.isLoggable(TAG, Log.DEBUG)) {
-                    Log.d(TAG, "OkHttp failed to obtain result", e);
-                }
-                callback.onLoadFailed(e);
-            }
+        call.enqueue(this);
+    }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                responseBody = response.body();
-                if (response.isSuccessful()) {
-                    long contentLength = responseBody.contentLength();
-                    stream = ContentLengthInputStream.obtain(responseBody.byteStream(), contentLength);
-                    callback.onDataReady(stream);
-                } else {
-                    callback.onLoadFailed(new HttpException(response.message(), response.code()));
-                }
-            }
-        });
+    @Override
+    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "OkHttp failed to obtain result", e);
+        }
+
+        callback.onLoadFailed(e);
+    }
+
+    @Override
+    public void onResponse(@NonNull Call call, @NonNull Response response) {
+        responseBody = response.body();
+        if (response.isSuccessful()) {
+            long contentLength = Preconditions.checkNotNull(responseBody).contentLength();
+            stream = ContentLengthInputStream.obtain(responseBody.byteStream(), contentLength);
+            callback.onDataReady(stream);
+        } else {
+            callback.onLoadFailed(new HttpException(response.message(), response.code()));
+        }
     }
 
     @Override
@@ -79,8 +86,8 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
         if (responseBody != null) {
             responseBody.close();
         }
+        callback = null;
     }
-
 
     @Override
     public void cancel() {
@@ -90,11 +97,13 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
         }
     }
 
+    @NonNull
     @Override
     public Class<InputStream> getDataClass() {
         return InputStream.class;
     }
 
+    @NonNull
     @Override
     public DataSource getDataSource() {
         return DataSource.REMOTE;

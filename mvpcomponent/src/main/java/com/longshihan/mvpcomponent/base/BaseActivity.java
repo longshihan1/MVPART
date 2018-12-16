@@ -8,7 +8,11 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.longshihan.mvpcomponent.base.delegate.IActivity;
+import com.longshihan.mvpcomponent.intergration.cache.Cache;
 import com.orhanobut.logger.Logger;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import io.reactivex.subjects.BehaviorSubject;
 
 import static com.longshihan.mvpcomponent.utils.ThirdViewUtil.convertAutoView;
 
@@ -22,6 +26,8 @@ import static com.longshihan.mvpcomponent.utils.ThirdViewUtil.convertAutoView;
 
 public abstract class BaseActivity extends AppCompatActivity implements IActivity {
     protected final String TAG = this.getClass().getSimpleName();
+    private final BehaviorSubject<ActivityEvent> mLifecycleSubject = BehaviorSubject.create();
+    private Cache<String, Object> mCache;
 
     @SuppressWarnings("unchecked")
     public final <E extends View> E getView(int id) {

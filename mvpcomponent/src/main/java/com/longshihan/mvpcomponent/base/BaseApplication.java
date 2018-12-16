@@ -8,6 +8,7 @@ import com.longshihan.mvpcomponent.BuildConfig;
 import com.longshihan.mvpcomponent.di.component.AppComponent;
 import com.longshihan.mvpcomponent.base.delegate.AppDelegate;
 import com.longshihan.mvpcomponent.base.delegate.AppLifecycles;
+import com.longshihan.mvpcomponent.utils.Preconditions;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -35,7 +36,8 @@ public class BaseApplication extends Application implements App {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(base);
-        this.mAppDelegate = new AppDelegate(base);
+        if (mAppDelegate == null)
+            this.mAppDelegate = new AppDelegate(base);
         this.mAppDelegate.attachBaseContext(base);
     }
 
@@ -64,6 +66,8 @@ public class BaseApplication extends Application implements App {
      */
     @Override
     public AppComponent getAppComponent() {
+        Preconditions.checkNotNull(mAppDelegate, "%s cannot be null", AppDelegate.class.getName());
+        Preconditions.checkState(mAppDelegate instanceof App, "%s must be implements %s", mAppDelegate.getClass().getName(), App.class.getName());
         return ((App) mAppDelegate).getAppComponent();
     }
 }

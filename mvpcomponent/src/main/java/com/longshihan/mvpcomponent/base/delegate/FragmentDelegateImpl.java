@@ -11,8 +11,7 @@ import com.longshihan.mvpcomponent.base.App;
 
 
 /**
- * Created by jess on 29/04/2017 16:12
- * Contact with jess.yan.effort@gmail.com
+ * {@link FragmentDelegate} 默认实现类
  */
 
 public class FragmentDelegateImpl implements FragmentDelegate {
@@ -35,7 +34,6 @@ public class FragmentDelegateImpl implements FragmentDelegate {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         iFragment.setupFragmentComponent(((App) mFragment.getActivity().getApplication()).getAppComponent());
-
     }
 
 
@@ -97,7 +95,7 @@ public class FragmentDelegateImpl implements FragmentDelegate {
      */
     @Override
     public boolean isAdded() {
-        return mFragment == null ? false : mFragment.isAdded();
+        return mFragment != null && mFragment.isAdded();
     }
 
     @Override

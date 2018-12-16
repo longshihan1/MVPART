@@ -9,6 +9,18 @@ import android.content.Context;
  */
 
 public interface BaseImageLoaderStrategy<T extends ImageConfig> {
+    /**
+     * 加载图片
+     *
+     * @param ctx {@link Context}
+     * @param config 图片加载配置信息
+     */
     void loadImage(Context ctx, T config);
+    /**
+     * 停止加载
+     *
+     * @param ctx {@link Context}
+     * @param config 图片加载配置信息
+     */
     void clear(Context ctx, T config);
 }

@@ -3,6 +3,7 @@ package com.longshihan.mvpcomponent.intergration;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
@@ -10,6 +11,9 @@ import com.longshihan.mvpcomponent.base.delegate.ActivityDelegate;
 import com.longshihan.mvpcomponent.base.delegate.ActivityDelegateImpl;
 import com.longshihan.mvpcomponent.base.delegate.FragmentDelegate;
 import com.longshihan.mvpcomponent.base.delegate.IActivity;
+import com.longshihan.mvpcomponent.intergration.cache.Cache;
+import com.longshihan.mvpcomponent.intergration.cache.IntelligentCache;
+import com.longshihan.mvpcomponent.utils.Preconditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +61,12 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
             if (activityDelegate == null) {
                 activityDelegate = new ActivityDelegateImpl(activity);
                 activity.getIntent().putExtra(ActivityDelegate.ACTIVITY_DELEGATE, activityDelegate);
+                Cache<String, Object> cache = getCacheFromActivity((IActivity) activity);
+                activityDelegate = new ActivityDelegateImpl(activity);
+                //使用 IntelligentCache.KEY_KEEP 作为 key 的前缀, 可以使储存的数据永久存储在内存中
+                //否则存储在 LRU 算法的存储空间中, 前提是 Activity 使用的是 IntelligentCache (框架默认使用)
+                cache.put(IntelligentCache.getKeyOfKeep(ActivityDelegate.ACTIVITY_DELEGATE), activityDelegate);
+
             }
             activityDelegate.onCreate(savedInstanceState);
         }
@@ -69,7 +79,7 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
          * 给每个Activity配置Fragment的监听,Activity可以通过 {@link IActivity#useFragment()} 设置是否使用监听
          * 如果这个Activity返回false的话,这个Activity将不能使用{@link FragmentDelegate},意味着 {@link com.longshihan.mvpcomponent.base.BaseMVPFragment}也不能使用
          */
-        boolean useFragment = activity instanceof IActivity ? ((IActivity) activity).useFragment() : true;
+        boolean useFragment = !(activity instanceof IActivity) || ((IActivity) activity).useFragment();
         if (activity instanceof FragmentActivity && useFragment) {
             if (mFragmentLifecycle == null) {
                 mFragmentLifecycle = new FragmentLifecycle();
@@ -157,5 +167,12 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
             activityDelegate = activity.getIntent().getParcelableExtra(ActivityDelegate.ACTIVITY_DELEGATE);
         }
         return activityDelegate;
+    }
+
+    @NonNull
+    private Cache<String, Object> getCacheFromActivity(IActivity activity) {
+        Cache<String, Object> cache = activity.provideCache();
+        Preconditions.checkNotNull(cache, "%s cannot be null on Activity", Cache.class.getName());
+        return cache;
     }
 }

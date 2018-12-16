@@ -17,23 +17,36 @@ import io.reactivex.disposables.Disposable;
  * Created by longshihan on 2017/8/16.
  */
 
-public class BasePresenter<V extends IView> implements IPresenter, LifecycleObserver {
+public class BaseMVPPresenter<M extends IModel,V extends IView> implements IPresenter, LifecycleObserver {
     protected final String TAG = this.getClass().getSimpleName();
     //rx2，和1的使用CompositeDisposable统一管理persenter线程
     protected CompositeDisposable mCompositeDisposable;
     protected V mRootView;
     //使用弱引用，但实际效果不好
     protected WeakReference<V> mViewRef;
+    protected M mModel;
 
-    public BasePresenter() {
+
+    public BaseMVPPresenter() {
     }
 
-    public BasePresenter(V rootView) {
+    public BaseMVPPresenter(V rootView) {
         this.mRootView = rootView;
        // attachView(rootView);
     }
 
-
+    /**
+     * 如果当前页面同时需要 Model 层和 View 层,则使用此构造函数(默认)
+     *
+     * @param model
+     * @param rootView
+     */
+    public BaseMVPPresenter(M model, V rootView) {
+        Preconditions.checkNotNull(model, "%s cannot be null", IModel.class.getName());
+        Preconditions.checkNotNull(rootView, "%s cannot be null", IView.class.getName());
+        this.mModel = model;
+        this.mRootView = rootView;
+    }
 
     private void detachView() {
         if (mViewRef != null) {
@@ -81,7 +94,13 @@ public class BasePresenter<V extends IView> implements IPresenter, LifecycleObse
 
     @Override
     public void onStart(@NotNull LifecycleOwner owner) {
-
+        //将 LifecycleObserver 注册给 LifecycleOwner 后 @OnLifecycleEvent 才可以正常使用
+        if (mRootView != null && mRootView instanceof LifecycleOwner) {
+            ((LifecycleOwner) mRootView).getLifecycle().addObserver(this);
+            if (mModel!= null && mModel instanceof LifecycleObserver){
+                ((LifecycleOwner) mRootView).getLifecycle().addObserver((LifecycleObserver) mModel);
+            }
+        }
     }
 
     @Override
@@ -103,7 +122,11 @@ public class BasePresenter<V extends IView> implements IPresenter, LifecycleObse
     public void onDestroy(@NotNull LifecycleOwner owner) {
         detachView();
         unDispose();//解除订阅
-
+        owner.getLifecycle().removeObserver(this);
+        if (mModel != null)
+            mModel.onDestroy();
+        this.mModel = null;
+        this.mRootView = null;
         this.mCompositeDisposable = null;
     }
 
@@ -116,4 +139,6 @@ public class BasePresenter<V extends IView> implements IPresenter, LifecycleObse
     public void onLifecycleChanged(@NotNull LifecycleOwner owner, @NotNull Lifecycle.Event event) {
 
     }
+
+
 }

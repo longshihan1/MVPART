@@ -1,6 +1,8 @@
 package com.longshihan.mvpcomponent.base;
 
 
+import android.support.annotation.NonNull;
+
 import com.longshihan.mvpcomponent.di.component.AppComponent;
 
 /**
@@ -10,5 +12,6 @@ import com.longshihan.mvpcomponent.di.component.AppComponent;
  */
 
 public interface App {
+    @NonNull
     AppComponent getAppComponent();
 }
