@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.longshihan.module_dandu">
+          package="com.longshihan.module_dandu">
 
-    <application>
+    <application
+        android:name="com.longshihan.mvpcomponent.base.BaseApplication"
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:icon="@drawable/app_logo">
+        <meta-data
+            android:name="debug.dandu.app.GlobalConfiguration"
+            android:value="ConfigModule"/>
+        <activity android:name=".splash.ui.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
