@@ -108,7 +108,7 @@ public class TodayGankFragment extends BaseMVPFragment<TodayPersenter> implement
 
     @Override
     public void setupFragmentComponent(AppComponent appComponent) {
-        mPresenter=new TodayPersenter(this, ArmsUtils.obtainAppComponentFromContext(this).repositoryManager());
+        mPresenter=new TodayPersenter(this,appComponent.repositoryManager());
     }
 
     @Override

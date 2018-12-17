@@ -1,6 +1,7 @@
 package com.longshihan.mvpcomponent.di.component;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.longshihan.mvpcomponent.base.delegate.AppDelegate;
@@ -11,6 +12,9 @@ import com.longshihan.mvpcomponent.error.core.RxErrorHandler;
 import com.longshihan.mvpcomponent.http.RequestInterceptor;
 import com.longshihan.mvpcomponent.intergration.AppManager;
 import com.longshihan.mvpcomponent.intergration.cache.Cache;
+import com.longshihan.mvpcomponent.intergration.cache.CacheType;
+import com.longshihan.mvpcomponent.intergration.cache.IntelligentCache;
+import com.longshihan.mvpcomponent.intergration.cache.LruCache;
 import com.longshihan.mvpcomponent.mvp.IRepositoryManager;
 import com.longshihan.mvpcomponent.mvp.RepositoryManager;
 import com.longshihan.mvpcomponent.strategy.imageloader.ImageLoader;
@@ -87,12 +91,12 @@ public class AppComponentImpl implements AppComponent {
 
     @Override
     public Cache.Factory cacheFactory() {
-        return null;
+        return globalConfigModule.provideCacheFactory(application);
     }
 
     @Override
     public ExecutorService executorService() {
-        return null;
+        return globalConfigModule.provideExecutorService();
     }
 
     @Override

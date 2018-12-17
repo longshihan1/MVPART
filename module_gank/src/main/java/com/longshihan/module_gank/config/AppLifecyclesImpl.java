@@ -3,12 +3,11 @@ package com.longshihan.module_gank.config;
 import android.app.Application;
 import android.content.Context;
 
+import com.longshihan.baseadapter.BuildConfig;
 import com.longshihan.module_gank.utils.ScreenShotListenManager;
 import com.longshihan.module_gank.utils.ShotDialogUtils;
-import com.longshihan.mvpcomponent.BuildConfig;
 import com.longshihan.mvpcomponent.base.delegate.AppLifecycles;
 import com.longshihan.mvpcomponent.intergration.AppManager;
-import com.longshihan.mvpcomponent.utils.ArmsUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 
@@ -49,7 +48,7 @@ public class AppLifecyclesImpl implements AppLifecycles {
             //                    });
             //leakCanary内存泄露检查
         }
-        if (BuildConfig.TDEBUG) {   // 这两行必须写在init之前，否则这些配置在init过程中将无效
+        if (BuildConfig.DEBUG) {   // 这两行必须写在init之前，否则这些配置在init过程中将无效
             Logger.addLogAdapter(new AndroidLogAdapter());//debug下使用Logger日志模块
         }
 
