@@ -113,6 +113,7 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
     @Override
     public void onActivityResumed(Activity activity) {
         mAppManager.setCurrentActivity(activity);
+
         ActivityDelegate activityDelegate = fetchActivityDelegate(activity);
         if (activityDelegate != null) {
             activityDelegate.onResume();
@@ -132,6 +133,7 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
         if (mAppManager.getCurrentActivity() == activity) {
             mAppManager.setCurrentActivity(null);
         }
+
         ActivityDelegate activityDelegate = fetchActivityDelegate(activity);
         if (activityDelegate != null) {
             activityDelegate.onStop();
@@ -149,10 +151,11 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
     @Override
     public void onActivityDestroyed(Activity activity) {
         mAppManager.removeActivity(activity);
+
         ActivityDelegate activityDelegate = fetchActivityDelegate(activity);
         if (activityDelegate != null) {
             activityDelegate.onDestroy();
-            activity.getIntent().removeExtra(ActivityDelegate.ACTIVITY_DELEGATE);
+            getCacheFromActivity((IActivity) activity).clear();
         }
     }
 
@@ -163,8 +166,9 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
      */
     private ActivityDelegate fetchActivityDelegate(Activity activity) {
         ActivityDelegate activityDelegate = null;
-        if (activity instanceof IActivity && activity.getIntent() != null) {
-            activityDelegate = activity.getIntent().getParcelableExtra(ActivityDelegate.ACTIVITY_DELEGATE);
+        if (activity instanceof IActivity) {
+            Cache<String, Object> cache = getCacheFromActivity((IActivity) activity);
+            activityDelegate = (ActivityDelegate) cache.get(IntelligentCache.getKeyOfKeep(ActivityDelegate.ACTIVITY_DELEGATE));
         }
         return activityDelegate;
     }

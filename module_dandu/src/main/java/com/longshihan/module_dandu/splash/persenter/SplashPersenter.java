@@ -1,11 +1,12 @@
-package com.longshihan.module_dandu.splash.ui;
+package com.longshihan.module_dandu.splash.persenter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Looper;
 
 import com.longshihan.module_dandu.mvp.model.entity.SplashEntity;
 import com.longshihan.module_dandu.service.DownloadImageService;
+import com.longshihan.module_dandu.splash.model.ISplashModel;
+import com.longshihan.module_dandu.splash.model.SplashModel;
 import com.longshihan.mvpcomponent.mvp.BasePresenter;
 import com.longshihan.mvpcomponent.mvp.IRepositoryManager;
 import com.longshihan.mvpcomponent.utils.NetUtil;

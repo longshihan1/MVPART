@@ -37,7 +37,7 @@ public class BaseApplication extends Application implements App {
         super.attachBaseContext(base);
         MultiDex.install(base);
         if (mAppDelegate == null)
-            this.mAppDelegate = new AppDelegate(base);
+            this.mAppDelegate = new AppDelegate(this);
         this.mAppDelegate.attachBaseContext(base);
     }
 

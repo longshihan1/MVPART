@@ -11,13 +11,16 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.longshihan.module_dandu.R;
+import com.longshihan.module_dandu.splash.persenter.SplashContract;
+import com.longshihan.module_dandu.splash.persenter.SplashPersenter;
 import com.longshihan.module_dandu.widget.FixedImageView;
 import com.longshihan.mvpcomponent.base.BaseMVPActivity;
 import com.longshihan.mvpcomponent.di.component.AppComponent;
-import com.longshihan.mvpcomponent.mvp.IPresenter;
+import com.longshihan.mvpcomponent.intergration.cache.Cache;
 import com.longshihan.mvpcomponent.utils.AppUtil;
 import com.longshihan.mvpcomponent.utils.FileUtil;
 import com.longshihan.mvpcomponent.utils.PreferenceUtils;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -175,4 +178,5 @@ public class SplashActivity extends BaseMVPActivity<SplashPersenter> implements 
     public boolean useFragment() {
         return false;
     }
+
 }

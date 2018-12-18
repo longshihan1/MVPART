@@ -1,5 +1,6 @@
 package com.longshihan.mvpcomponent.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -57,6 +58,7 @@ public class AppUtil {
         }
         return 0;
     }
+
     public static String getDeviceId(Context context){
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         return tm.getDeviceId();

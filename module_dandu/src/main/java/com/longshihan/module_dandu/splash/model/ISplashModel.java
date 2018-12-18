@@ -1,4 +1,4 @@
-package com.longshihan.module_dandu.splash.ui;
+package com.longshihan.module_dandu.splash.model;
 
 import com.longshihan.module_dandu.mvp.model.entity.SplashEntity;
 

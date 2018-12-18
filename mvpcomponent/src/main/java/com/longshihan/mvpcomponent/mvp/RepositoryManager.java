@@ -37,10 +37,11 @@ public class RepositoryManager implements IRepositoryManager {
     private Cache mRetrofitServiceCache;
     private Cache<String, Object> mCacheServiceCache;
 
-    public RepositoryManager(Retrofit retrofit, RxCache rxCache,Application application) {
+    public RepositoryManager(Retrofit retrofit, RxCache rxCache,Application application,Cache.Factory factory) {
         this.mRetrofit = retrofit;
         this.mRxCache = rxCache;
         this.mApplication = application;
+        this.mCachefactory=factory;
     }
 
 

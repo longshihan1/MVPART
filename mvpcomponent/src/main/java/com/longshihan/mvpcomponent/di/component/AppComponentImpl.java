@@ -33,6 +33,7 @@ public class AppComponentImpl implements AppComponent {
     private GlobalConfigModule globalConfigModule;
     private Application application;
     private RequestInterceptor requestInterceptor;
+    private Cache.Factory factory;
 
     public AppComponentImpl(AppModule appModule, ClientModule clientModule, GlobalConfigModule globalConfigModule) {
         this.appModule = appModule;
@@ -80,7 +81,7 @@ public class AppComponentImpl implements AppComponent {
         Retrofit retrofit = clientModule.provideRetrofit(
                 application, globalConfigModule.provideRetrofitConfiguration(),
                 builder, okHttpClient(), globalConfigModule.provideBaseUrl(), gson());
-        RepositoryManager repositoryManager = new RepositoryManager(retrofit, rxCache, application);
+        RepositoryManager repositoryManager = new RepositoryManager(retrofit, rxCache,application, factory);
         return appModule.provideRepositoryManager(repositoryManager);
     }
 
@@ -91,7 +92,7 @@ public class AppComponentImpl implements AppComponent {
 
     @Override
     public Cache.Factory cacheFactory() {
-        return globalConfigModule.provideCacheFactory(application);
+        return factory;
     }
 
     @Override
@@ -110,6 +111,7 @@ public class AppComponentImpl implements AppComponent {
     }
 
     private AppDelegate injectAppDelegate(AppDelegate delegate) {
+        factory=globalConfigModule.provideCacheFactory(application);
         return delegate;
     }
 }

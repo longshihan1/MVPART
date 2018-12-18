@@ -1,4 +1,4 @@
-package com.longshihan.module_dandu.splash.ui;
+package com.longshihan.module_dandu.splash.persenter;
 
 
 import com.longshihan.mvpcomponent.mvp.IView;

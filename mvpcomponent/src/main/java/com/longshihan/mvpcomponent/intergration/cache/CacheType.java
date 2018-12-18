@@ -122,7 +122,10 @@ public interface CacheType {
         @Override
         public int calculateCacheSize(Context context) {
             ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            int targetMemoryCacheSize = (int) (activityManager.getMemoryClass() * MAX_SIZE_MULTIPLIER * 1024);
+            int targetMemoryCacheSize=0;
+            if (activityManager!=null) {
+                 targetMemoryCacheSize = (int) (activityManager.getMemoryClass() * MAX_SIZE_MULTIPLIER * 1024);
+            }
             if (targetMemoryCacheSize >= MAX_SIZE) {
                 return MAX_SIZE;
             }

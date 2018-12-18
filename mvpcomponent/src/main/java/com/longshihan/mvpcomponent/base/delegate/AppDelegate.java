@@ -19,7 +19,7 @@ import com.longshihan.mvpcomponent.intergration.ActivityLifecycle;
 import com.longshihan.mvpcomponent.intergration.AppManager;
 import com.longshihan.mvpcomponent.intergration.ConfigModule;
 import com.longshihan.mvpcomponent.intergration.ManifestParser;
-import com.longshihan.mvpcomponent.strategy.imageloader.glide.ImageConfigImpl;
+import com.longshihan.mvpcomponent.intergration.lifecycle.ActivityLifecycleForRxLifecycle;
 import com.longshihan.mvpcomponent.utils.Preconditions;
 
 import java.util.ArrayList;
@@ -84,6 +84,7 @@ public class AppDelegate implements App, AppLifecycles {
         AppManager appManager=AppManager.getAppManager();
         appManager.init(application);
         mActivityLifecycle=new ActivityLifecycle(appManager,application,mAppComponent.extras());
+        mActivityLifecycleForRxLifecycle=new ActivityLifecycleForRxLifecycle();
         //注册框架内部已实现的 Activity 生命周期逻辑
         mApplication.registerActivityLifecycleCallbacks(mActivityLifecycle);
 
