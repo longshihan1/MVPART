@@ -1,5 +1,6 @@
 package com.longshihan.mvpcomponent.strategy.imageloader.glide;
 
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
@@ -21,6 +22,7 @@ public class ImageConfigImpl extends ImageConfig {
     private Target[] targets;
     private boolean isClearMemory;//清理内存缓存
     private boolean isClearDiskCache;//清理本地缓存
+    private GlideRequest glideRequest;
 
     private ImageConfigImpl(Builder builder) {
         this.url = builder.url;
@@ -34,6 +36,7 @@ public class ImageConfigImpl extends ImageConfig {
         this.imageViews = builder.imageViews;
         this.isClearMemory = builder.isClearMemory;
         this.isClearDiskCache = builder.isClearDiskCache;
+        this.glideRequest=builder.glideRequest;
     }
 
     public int getCacheStrategy() {
@@ -69,6 +72,10 @@ public class ImageConfigImpl extends ImageConfig {
         return new Builder();
     }
 
+    public GlideRequest getGlideRequest() {
+        return glideRequest;
+    }
+
 
     public static final class Builder {
         private String url;
@@ -82,6 +89,7 @@ public class ImageConfigImpl extends ImageConfig {
         private Target[] targets;
         private boolean isClearMemory;//清理内存缓存
         private boolean isClearDiskCache;//清理本地缓存
+        private GlideRequest glideRequest;
 
         private Builder() {
         }
@@ -139,6 +147,11 @@ public class ImageConfigImpl extends ImageConfig {
 
         public Builder isClearDiskCache(boolean isClearDiskCache) {
             this.isClearDiskCache = isClearDiskCache;
+            return this;
+        }
+
+        public Builder glideRequest(GlideRequest glideRequest){
+            this.glideRequest=glideRequest;
             return this;
         }
 

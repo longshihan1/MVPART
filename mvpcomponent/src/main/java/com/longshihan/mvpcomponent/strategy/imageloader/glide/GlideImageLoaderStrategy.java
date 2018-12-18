@@ -32,57 +32,60 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<ImageCo
 
     @Override
     public void loadImage(Context ctx, ImageConfigImpl config) {
-        if (ctx == null)
-            throw new NullPointerException("Context is required");
         if (config == null)
             throw new NullPointerException("ImageConfigImpl is required");
-        if (TextUtils.isEmpty(config.getUrl()))
-            throw new NullPointerException("Url is required");
-        if (config.getImageView() == null)
-            throw new NullPointerException("Imageview is required");
-
-        GlideRequests requests;
-
-        requests = GlideArms.with(ctx);//如果context是activity则自动使用Activity的生命周期
-
-        GlideRequest<Drawable> glideRequest = requests.load(config.getUrl())
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .centerCrop();
-
-        switch (config.getCacheStrategy()) {//缓存策略
-            case 0:
-                glideRequest.diskCacheStrategy(DiskCacheStrategy.ALL);
-                break;
-            case 1:
-                glideRequest.diskCacheStrategy(DiskCacheStrategy.NONE);
-                break;
-            case 2:
-                glideRequest.diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-                break;
-            case 3:
-                glideRequest.diskCacheStrategy(DiskCacheStrategy.DATA);
-                break;
-            case 4:
-                glideRequest.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
-                break;
-            default:
-                glideRequest.diskCacheStrategy(DiskCacheStrategy.ALL);
-                break;
-        }
-        if (config.getTransformation() != null) {//glide用它来改变图形的形状
-            glideRequest.transform(config.getTransformation());
+        if (config.getGlideRequest()!=null){
+            config.getGlideRequest().into(config.getImageView());
         }else {
-            glideRequest.transform(new GlideTransform());
+            if (ctx == null)
+                throw new NullPointerException("Context is required");
+            if (TextUtils.isEmpty(config.getUrl()))
+                throw new NullPointerException("Url is required");
+            if (config.getImageView() == null)
+                throw new NullPointerException("Imageview is required");
+
+            GlideRequests requests;
+
+            requests = GlideArms.with(ctx);//如果context是activity则自动使用Activity的生命周期
+            GlideRequest<Drawable> glideRequest = requests.load(config.getUrl())
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .centerCrop();
+
+            switch (config.getCacheStrategy()) {//缓存策略
+                case 0:
+                    glideRequest.diskCacheStrategy(DiskCacheStrategy.ALL);
+                    break;
+                case 1:
+                    glideRequest.diskCacheStrategy(DiskCacheStrategy.NONE);
+                    break;
+                case 2:
+                    glideRequest.diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+                    break;
+                case 3:
+                    glideRequest.diskCacheStrategy(DiskCacheStrategy.DATA);
+                    break;
+                case 4:
+                    glideRequest.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+                    break;
+                default:
+                    glideRequest.diskCacheStrategy(DiskCacheStrategy.ALL);
+                    break;
+            }
+            if (config.getTransformation() != null) {//glide用它来改变图形的形状
+                glideRequest.transform(config.getTransformation());
+            } else {
+                glideRequest.transform(new GlideTransform());
+            }
+            if (config.getPlaceholder() != 0)//设置占位符
+                glideRequest.placeholder(config.getPlaceholder());
+
+            if (config.getErrorPic() != 0)//设置错误的图片
+                glideRequest.error(config.getErrorPic());
+
+            if (config.getFallback() != 0)//设置请求 url 为空图片
+                glideRequest.fallback(config.getFallback());
+            glideRequest.into(config.getImageView());
         }
-        if (config.getPlaceholder() != 0)//设置占位符
-            glideRequest.placeholder(config.getPlaceholder());
-
-        if (config.getErrorPic() != 0)//设置错误的图片
-            glideRequest.error(config.getErrorPic());
-
-        if (config.getFallback() != 0)//设置请求 url 为空图片
-            glideRequest.fallback(config.getFallback());
-        glideRequest.into(config.getImageView());
     }
 
     @Override
@@ -101,23 +104,13 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<ImageCo
         if (config.isClearDiskCache()) {//清除本地缓存
             Observable.just(0)
                     .observeOn(Schedulers.io())
-                    .subscribe(new Consumer<Integer>() {
-                        @Override
-                        public void accept(@NonNull Integer integer) throws Exception {
-                            Glide.get(ctx).clearDiskCache();
-                        }
-                    });
+                    .subscribe(integer -> Glide.get(ctx).clearDiskCache());
         }
 
         if (config.isClearMemory()) {//清除内存缓存
             Observable.just(0)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<Integer>() {
-                        @Override
-                        public void accept(@NonNull Integer integer) throws Exception {
-                            Glide.get(ctx).clearMemory();
-                        }
-                    });
+                    .subscribe(integer -> Glide.get(ctx).clearMemory());
         }
 
     }

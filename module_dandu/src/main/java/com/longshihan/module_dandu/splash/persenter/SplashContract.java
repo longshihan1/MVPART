@@ -11,8 +11,6 @@ import com.longshihan.mvpcomponent.mvp.IView;
 
 public interface SplashContract {
     interface View extends IView {
-        void startLoadMore();
-        void endLoadMore();
     }
 
     interface Presenter {

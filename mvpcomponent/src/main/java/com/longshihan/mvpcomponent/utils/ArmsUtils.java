@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,9 @@ import com.longshihan.mvpcomponent.di.component.AppComponent;
 import com.longshihan.mvpcomponent.base.App;
 import com.longshihan.mvpcomponent.intergration.AppManager;
 import com.longshihan.mvpcomponent.strategy.imageloader.ImageLoader;
+import com.longshihan.mvpcomponent.strategy.imageloader.glide.GlideArms;
+import com.longshihan.mvpcomponent.strategy.imageloader.glide.GlideRequest;
+import com.longshihan.mvpcomponent.strategy.imageloader.glide.ImageConfigImpl;
 
 import java.security.MessageDigest;
 
@@ -371,4 +375,8 @@ public class ArmsUtils {
         return obtainAppComponentFromContext(fragment).imageLoader();
     }
 
+    public static void ConfigGlideRequest(Context context, GlideRequest glideRequest, ImageView imageView){
+        ArmsUtils.getImageLoader(context).loadImage(context,
+                ImageConfigImpl.builder().glideRequest(glideRequest).imageView(imageView).build());
+    }
 }
