@@ -52,6 +52,9 @@ public class ActivityLifecycleForRxLifecycle implements Application.ActivityLife
         if (activity instanceof ActivityLifecycleable) {
             obtainSubject(activity).onNext(ActivityEvent.CREATE);
             if (activity instanceof FragmentActivity) {
+                if (mFragmentLifecycle==null){
+                    mFragmentLifecycle=new FragmentLifecycleForRxLifecycle();
+                }
                 ((FragmentActivity) activity).getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentLifecycle, true);
             }
         }

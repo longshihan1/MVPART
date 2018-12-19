@@ -113,6 +113,6 @@ public abstract class BaseMVPActivity<P extends IPresenter> extends AppCompatAct
 
     @Override
     public boolean useFragment() {
-        return true;
+        return false;
     }
 }

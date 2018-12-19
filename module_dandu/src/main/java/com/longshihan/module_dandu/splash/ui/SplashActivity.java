@@ -3,34 +3,37 @@ package com.longshihan.module_dandu.splash.ui;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.longshihan.module_dandu.R;
+import com.longshihan.module_dandu.main.ui.DanduActivitymainActivity2;
 import com.longshihan.module_dandu.splash.persenter.SplashContract;
 import com.longshihan.module_dandu.splash.persenter.SplashPersenter;
 import com.longshihan.module_dandu.widget.FixedImageView;
 import com.longshihan.mvpcomponent.base.BaseMVPActivity;
 import com.longshihan.mvpcomponent.di.component.AppComponent;
-import com.longshihan.mvpcomponent.strategy.imageloader.glide.GlideArms;
 import com.longshihan.mvpcomponent.utils.AppUtil;
-import com.longshihan.mvpcomponent.utils.ArmsUtils;
 import com.longshihan.mvpcomponent.utils.FileUtil;
 import com.longshihan.mvpcomponent.utils.PreferenceUtils;
 import com.longshihan.permissionlibrary.CheckPermissions;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Random;
-
+@Route(path = "/dandu/SplashActivity")
 public class SplashActivity extends BaseMVPActivity<SplashPersenter> implements SplashContract.View {
 
     FixedImageView splashImg;
@@ -79,10 +82,10 @@ public class SplashActivity extends BaseMVPActivity<SplashPersenter> implements 
         CheckPermissions checkPermissions = new CheckPermissions(this);
         checkPermissions.setLisener(permission -> {
             if (permission.granted) {
-                Log.i("permissions", Manifest.permission.READ_CALENDAR + "：获取成功");
+                Logger.i(Manifest.permission.READ_CALENDAR + "：获取成功");
                 delaySplash();
             } else {
-                Log.i("permissions", Manifest.permission.READ_CALENDAR + "：获取失败");
+                Logger.i(Manifest.permission.READ_CALENDAR + "：获取失败");
             }
         });
         checkPermissions.request(
@@ -91,7 +94,6 @@ public class SplashActivity extends BaseMVPActivity<SplashPersenter> implements 
                 Manifest.permission.CALL_PHONE,
                 Manifest.permission.READ_PHONE_STATE
         );
-        delaySplash();
     }
 
     private void delaySplash() {
@@ -111,12 +113,21 @@ public class SplashActivity extends BaseMVPActivity<SplashPersenter> implements 
             }
             PreferenceUtils.setValue("splash_img_index", index);
             File file = new File(picList.get(index));
-            ArmsUtils.ConfigGlideRequest(this, GlideArms.with(this).load(file), splashImg);
+            try {
+                InputStream fis = new FileInputStream(file);
+                splashImg.setImageDrawable(InputStream2Drawable(fis));
+                animWelcomeImage();
+                fis.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+
+            }
         } else {
             try {
                 AssetManager assetManager = this.getAssets();
                 InputStream in = assetManager.open("welcome_default.jpg");
-                ArmsUtils.ConfigGlideRequest(this, GlideArms.with(this).load(in), splashImg);
+                splashImg.setImageDrawable(InputStream2Drawable(in));
                 animWelcomeImage();
                 in.close();
                 String deviceId = AppUtil.getDeviceId(SplashActivity.this);
@@ -152,9 +163,9 @@ public class SplashActivity extends BaseMVPActivity<SplashPersenter> implements 
 
             @Override
             public void onAnimationEnd(Animator animation) {
-//                Intent intent = new Intent(SplashActivity.this, DanduActivitymainActivity2.class);
-//                startActivity(intent);
-//                finish();
+                Intent intent = new Intent(SplashActivity.this, DanduActivitymainActivity2.class);
+                startActivity(intent);
+                finish();
             }
 
             @Override
