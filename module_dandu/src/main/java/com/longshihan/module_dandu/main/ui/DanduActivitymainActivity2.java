@@ -44,7 +44,7 @@ public class DanduActivitymainActivity2 extends BaseMVPActivity {
 
     @Override
     public void initData() {
-        mDrawerLayout = (DrawerLayout) getView(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         mToolbar = (Toolbar) findViewById(R.id.dandu_maintoolbar);
         mToolbar.setTitle("");
@@ -150,6 +150,11 @@ public class DanduActivitymainActivity2 extends BaseMVPActivity {
         } else if (DanDuConstacts.Login.equals(msg)) {
 
         }
+    }
+
+    @Override
+    public boolean useFragment() {
+        return true;
     }
 
     @Override

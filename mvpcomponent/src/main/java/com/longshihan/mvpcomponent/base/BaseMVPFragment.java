@@ -88,7 +88,9 @@ public abstract class BaseMVPFragment<P extends IPresenter> extends Fragment imp
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getLifecycle().addObserver(mPresenter);
+        if (mPresenter!=null) {
+            getLifecycle().addObserver(mPresenter);
+        }
     }
 
     private CompositeDisposable mCompositeDisposable;

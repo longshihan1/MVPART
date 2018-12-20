@@ -2,6 +2,7 @@ package com.longshihan.mvpcomponent.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -75,15 +76,17 @@ public abstract class BaseMVPActivity<P extends IPresenter> extends AppCompatAct
                 setContentView(layoutResID);
             }
         } catch (Exception e) {
+            Logger.w(e.getMessage());
             e.printStackTrace();
         }
-        initData();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getLifecycle().addObserver(mPresenter);
+        if (mPresenter!=null) {
+            getLifecycle().addObserver(mPresenter);
+        }
     }
 
     private CompositeDisposable mCompositeDisposable;

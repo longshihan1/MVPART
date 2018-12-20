@@ -49,34 +49,22 @@ public class FragmentDelegateImpl implements FragmentDelegate {
     }
 
     @Override
-    public void onStart() {
-
-    }
+    public void onStart() {}
 
     @Override
-    public void onResume() {
-
-    }
+    public void onResume() {}
 
     @Override
-    public void onPause() {
-
-    }
+    public void onPause() {}
 
     @Override
-    public void onStop() {
-
-    }
+    public void onStop() {}
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-
-    }
+    public void onSaveInstanceState(Bundle outState) {}
 
     @Override
-    public void onDestroyView() {
-
-    }
+    public void onDestroyView() {}
 
     @Override
     public void onDestroy() {
@@ -86,9 +74,7 @@ public class FragmentDelegateImpl implements FragmentDelegate {
     }
 
     @Override
-    public void onDetach() {
-
-    }
+    public void onDetach() {}
 
     /**
      * Return true if the fragment is currently added to its activity.
@@ -98,31 +84,4 @@ public class FragmentDelegateImpl implements FragmentDelegate {
         return mFragment != null && mFragment.isAdded();
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
-
-    protected FragmentDelegateImpl(Parcel in) {
-        this.mFragmentManager = in.readParcelable(FragmentManager.class.getClassLoader());
-        this.mFragment = in.readParcelable(Fragment.class.getClassLoader());
-        this.iFragment = in.readParcelable(IFragment.class.getClassLoader());
-    }
-
-    public static final Creator<FragmentDelegateImpl> CREATOR = new Creator<FragmentDelegateImpl>() {
-        @Override
-        public FragmentDelegateImpl createFromParcel(Parcel source) {
-            return new FragmentDelegateImpl(source);
-        }
-
-        @Override
-        public FragmentDelegateImpl[] newArray(int size) {
-            return new FragmentDelegateImpl[size];
-        }
-    };
 }

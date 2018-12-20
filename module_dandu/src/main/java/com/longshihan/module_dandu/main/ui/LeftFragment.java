@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.longshihan.module_dandu.R;
 import com.longshihan.module_dandu.mvp.model.entity.LeftMenuEvent;
@@ -19,9 +20,6 @@ import com.longshihan.mvpcomponent.di.component.AppComponent;
 
 import org.greenrobot.eventbus.EventBus;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class LeftFragment extends BaseMVPFragment implements View.OnClickListener {
     ImageView rightSlideSetting;
     ImageView search;
@@ -35,17 +33,20 @@ public class LeftFragment extends BaseMVPFragment implements View.OnClickListene
     LinearLayout nolineLinear;
     LinearLayout noteLinear;
     RelativeLayout titleBar;
-    View mRootView;
     private ImageView login;
 
     public LeftFragment() {
+
     }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.dandu_leftmenu_right_slide_close) {
+            Toast.makeText(mActivity,"点击设置",Toast.LENGTH_SHORT).show();
 //            startActivity(new Intent(getActivity(), SettingActivity.class));
         } else if (i == R.id.dandu_leftmenu_search) {
+            Toast.makeText(mActivity,"点击搜索",Toast.LENGTH_SHORT).show();
 //            startActivity(new Intent(getActivity(), SearchActivity.class));
         } else if (i == R.id.dandu_leftmenu_home_page_tv) {
             EventBus.getDefault().postSticky(new LeftMenuEvent(DanDuConstacts.HomePageTV));
@@ -84,19 +85,19 @@ public class LeftFragment extends BaseMVPFragment implements View.OnClickListene
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        rightSlideSetting = (ImageView) mRootView.findViewById(R.id.dandu_leftmenu_right_slide_close);
-        search = (ImageView) mRootView.findViewById(R.id.dandu_leftmenu_search);
-        homePageTv = (TextView) mRootView.findViewById(R.id.dandu_leftmenu_home_page_tv);
-        wordsTv = (TextView) mRootView.findViewById(R.id.dandu_leftmenu_words_tv);
-        voiceTv = (TextView) mRootView.findViewById(R.id.dandu_leftmenu_voice_tv);
-        videoTv = (TextView) mRootView.findViewById(R.id.dandu_leftmenu_video_tv);
-        calendarTv = (TextView) mRootView.findViewById(R.id.dandu_leftmenu_calendar_tv);
-        messageLinear = (LinearLayout) mRootView.findViewById(R.id.dandu_leftmenu_msg);
-        collLinear = (LinearLayout) mRootView.findViewById(R.id.dandu_leftmenu_coll);
-        nolineLinear = (LinearLayout) mRootView.findViewById(R.id.dandu_leftmenu_noline);
-        noteLinear = (LinearLayout) mRootView.findViewById(R.id.dandu_leftmenu_neta);
-        titleBar = (RelativeLayout) mRootView.findViewById(R.id.dandu_leftmenu_title_bar);
-        login= (ImageView) mRootView.findViewById(R.id.dandu_leftmenu_login);
+        rightSlideSetting =  mRootview.findViewById(R.id.dandu_leftmenu_right_slide_close);
+        search =  mRootview.findViewById(R.id.dandu_leftmenu_search);
+        homePageTv =  mRootview.findViewById(R.id.dandu_leftmenu_home_page_tv);
+        wordsTv =  mRootview.findViewById(R.id.dandu_leftmenu_words_tv);
+        voiceTv =  mRootview.findViewById(R.id.dandu_leftmenu_voice_tv);
+        videoTv =  mRootview.findViewById(R.id.dandu_leftmenu_video_tv);
+        calendarTv =  mRootview.findViewById(R.id.dandu_leftmenu_calendar_tv);
+        messageLinear =  mRootview.findViewById(R.id.dandu_leftmenu_msg);
+        collLinear =  mRootview.findViewById(R.id.dandu_leftmenu_coll);
+        nolineLinear =  mRootview.findViewById(R.id.dandu_leftmenu_noline);
+        noteLinear =  mRootview.findViewById(R.id.dandu_leftmenu_neta);
+        titleBar =  mRootview.findViewById(R.id.dandu_leftmenu_title_bar);
+        login=  mRootview.findViewById(R.id.dandu_leftmenu_login);
         rightSlideSetting.setOnClickListener(this);
         search.setOnClickListener(this);
         homePageTv.setOnClickListener(this);

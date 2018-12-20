@@ -10,9 +10,9 @@ import android.view.View;
  *{@link Fragment} 代理类,用于框架内部在每个 {@link Fragment} 的对应生命周期中插入需要的逻辑
  */
 
-public interface FragmentDelegate extends Parcelable{
+public interface FragmentDelegate{
 
-    String FRAGMENT_DELEGATE = "fragment_delegate";
+    String FRAGMENT_DELEGATE = "FRAGMENT_DELEGATE";
 
     void onAttach(Context context);
 

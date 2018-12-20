@@ -30,7 +30,6 @@ public class DailyItemFragment extends BaseMVPFragment {
     TextView yearTv;
     RelativeLayout dateRl;
     ImageView calendarIv;
-    private Context mContext;
 
     @Override
     public void onAttach(Context context) {
@@ -56,7 +55,7 @@ public class DailyItemFragment extends BaseMVPFragment {
                 .imageView(calendarIv)
                 .build());
         String[] arrayOfString = TimeUtil.getCalendarShowTime(item.getUpdate_time());
-        if ((arrayOfString != null) && (arrayOfString.length == 3)) {
+        if (arrayOfString != null&& arrayOfString.length == 3) {
             monthTv.setText(arrayOfString[1] + " , " + arrayOfString[2]);
             yearTv.setText(arrayOfString[0]);
         }

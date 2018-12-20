@@ -71,7 +71,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         } catch (Exception e) {
             e.printStackTrace();
         }
-        initData();
     }
     private CompositeDisposable mCompositeDisposable;
     public void addDispose(Disposable disposable) {
