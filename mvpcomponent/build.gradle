@@ -136,7 +136,7 @@ dependencies {
         exclude module: 'rxandroid'
         exclude module: 'rxlifecycle'
     }
-    api 'org.jsoup:jsoup:1.7.3'
+    api 'org.jsoup:jsoup:1.10.3'
     api("fm.jiecao:jiecaovideoplayer:4.8.2"){
         exclude module:'tv.danmaku.ijk.media:ijkplayer-x86'
         exclude module:'tv.danmaku.ijk.media:ijkplayer-x86_64'

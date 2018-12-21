@@ -152,11 +152,7 @@ public class FragmentLifecycle extends FragmentManager.FragmentLifecycleCallback
     private FragmentDelegate fetchFragmentDelegate(Fragment fragment) {
         if (fragment instanceof IFragment) {
             Cache<String, Object> cache = getCacheFromFragment((IFragment) fragment);
-            FragmentDelegate fragmentDelegate = null;
-            if (cache != null) {
-                fragmentDelegate = (FragmentDelegate) cache.get(IntelligentCache.getKeyOfKeep(FragmentDelegate.FRAGMENT_DELEGATE));
-            }
-            return fragmentDelegate;
+            return (FragmentDelegate) cache.get(IntelligentCache.getKeyOfKeep(FragmentDelegate.FRAGMENT_DELEGATE));
         }
         return null;
     }
